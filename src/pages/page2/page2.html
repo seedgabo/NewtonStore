@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Carrito</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div text-center>
+        <small>
+            <ion-icon name="arrow-dropleft"></ion-icon>
+            Desliza para eliminar
+        </small>
+    </div>
+    <ion-list>
+        <ion-item-sliding #slide *ngFor="let item of api.carrito; let i = index;">
+            <button ion-item >
+                <ion-thumbnail item-left>
+                    <img [src]="item.image_url" alt="">
+                </ion-thumbnail>
+                <h3 text-center style="font-weight:600">{{item.name}}</h3>
+                <b>Referencia: {{item.referencia}}</b>
+                <p text-right> Pedidos: {{item.cantidad_pedidos}}</p>
+            </button>
+            <ion-item-options side="right">
+                <button ion-button color="danger" (click)="delete(item,i)" icon-only>
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <div text-left>
+                        <!-- <b>Total:</b> {{total()|currency:'USD':true}} -->
+                    </div>
+                </ion-col>
+                <ion-col width-66>
+                    <button ion-button full color="secondary" icon-left (click)="processCart()">
+                         <ion-icon name="cart"></ion-icon>
+                         Confirmar Pedido
+                     </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>

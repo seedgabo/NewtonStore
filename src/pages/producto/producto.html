@@ -1,0 +1,67 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{producto.name}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="producto-details">
+    <ion-refresher (ionRefresh)="getProducto($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+     <ion-grid>
+         <ion-row wrap responsive-md>
+             <ion-col width-50="">
+                 <ion-card *ngIf="producto.images && producto.images.length > 1">
+                     <ion-slides #mySlider options="{loop:true,autoplay:4000,pager:true}">
+                         <ion-slide style="width:100%; max-height:300px;" *ngFor="let imagen of producto.images">
+                             <img [src]="imagen.url" alt="Error">
+                         </ion-slide>
+                     </ion-slides>
+                     <ion-row wrap>
+                         <ion-col width-20 *ngFor="let imagen of producto.images, let i = index">
+                             <img (click)="goToSlide(i)" [src]="imagen.url" alt="" style="height:45px;"  />
+                         </ion-col>
+                     </ion-row>
+                 </ion-card>
+                 <ion-card *ngIf="!producto.images || producto.images.length < 2">
+                     <img [src]="producto.image_url" style="width:100%; max-height:300px;">
+                 </ion-card>
+                 <div text-center>
+                     <button ion-button clear round secondary style="font-size:16px" (click)="addPed()"> <ion-icon name="add-circle"></ion-icon></button>
+                     <input  class="qty-input" type="number" max="{{producto.quantity}}" min="1" [(ngModel)]="producto.cantidad_pedidos" value="1">
+                     <button ion-button clear round danger style="font-size:16px" (click)="susPed()"> <ion-icon name="remove-circle"></ion-icon></button>
+                 </div>
+             </ion-col>
+
+             <ion-col width-50="">
+                 <ion-card>
+                     <ion-card-header>
+                         {{producto.name}}
+                     </ion-card-header>
+                     <ion-list>
+                         <ion-item *ngIf="producto.mostrar_precio">
+                             <ion-icon name="pricetag" primary small item-left></ion-icon>
+                             <h3><b> Precio: </b> {{ producto.precio |currency:'USD':true }}</h3>
+                         </ion-item>
+                         <ion-item *ngIf="producto.mostrar_stock">
+                             <ion-icon name="archive" primary small item-left></ion-icon>
+                             <h3> <b>Stock:</b> {{producto.stock ? producto.stock :  "0"}}</h3>
+                         </ion-item>
+                         <ion-item>
+                             <h2 style="font-weight:600;">Descripción</h2> <br>
+                             <div style="white-space: normal;" [innerHTML]="producto.description"></div>
+                         </ion-item>
+                         <ion-item *ngFor="let adicional  of producto.data">
+                             <b>{{adicional.nombre}}</b> <span>{{adicional.valor}}</span>
+                         </ion-item>
+                     </ion-list>
+                 </ion-card>
+             </ion-col>
+         </ion-row>
+     </ion-grid>
+ </ion-content>
+ <ion-footer>
+     <ion-toolbar>
+         <button ion-button block primary small (click)="addtoCart()"><ion-icon name="cart"></ion-icon> Agregar Al Carrito</button>
+     </ion-toolbar>
+ </ion-footer>

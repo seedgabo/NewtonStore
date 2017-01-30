@@ -1,0 +1,111 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{categoria != undefined ? categoria.nombre : 'Home'}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="changeView()">
+                <ion-icon name="eye"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+    <ion-toolbar>
+        <ion-searchbar cancelButtonText="X" placeholder="Buscar..."  [(ngModel)]="query"  (ionInput)="buscar($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <div text-center>
+        <ion-spinner color="primary" *ngIf="loading"></ion-spinner>
+    </div>
+    <ion-card *ngIf="categorias.length > 0">
+        <ion-list>
+            <ion-list-header>
+                Categorias
+            </ion-list-header>
+            <button ion-item (click)="verCategoria(cat)" *ngFor="let cat of categorias">
+                <ion-avatar item-left *ngIf="cat.image">
+                    <img src="{{cat.image.url}}" alt="">
+                </ion-avatar>
+                <h2 text-center color="primary" ion-text> {{cat.nombre}}</h2>
+                <ion-icon name="arrow-dropright" item-right></ion-icon>
+            </button>
+        </ion-list>
+    </ion-card>
+
+    <ion-grid *ngIf="api.vista == 'grid'">
+        <ion-row wrap responsive-md>
+            <ion-col width-25="" *ngFor="let producto of productos">
+                <ion-card>
+                    <img [src]="producto.image_url" style="height:100px;width:100px; margin:0 auto;" tappable (click)="verProducto(producto)"  />
+
+                    <ion-card-content text-center>
+                        <h5 style="font-weight:500;" text-center ion-text color="primary" height="2">
+                            {{producto.name}}
+                        </h5>
+                        <ion-grid>
+                            <ion-row wrap>
+                                <ion-col width-50="">
+                                    <p *ngIf="producto.mostrar_precio">
+                                        <b>Precio:</b> <span>{{producto.precio | currency:'USD':true }}</span>
+                                    </p>
+                                </ion-col>
+
+                                <ion-col width-50="">
+                                    <p *ngIf="producto.mostrar_stock">
+                                        <b>Stock:</b> <span>{{producto.stock }}</span>
+                                    </p>
+                                </ion-col>
+                                <ion-col width-100="">
+                                    <b>Referencia:</b>  <span> {{ producto.referencia }} </span>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+
+                    </ion-card-content>
+
+                    <ion-row no-padding>
+                        <ion-col>
+                            <button ion-button clear block small color="primary" icon-left (click)="agregarAlCarrito(producto)">
+                                <ion-icon name='cart'></ion-icon>
+                                Agregar
+                            </button>
+                        </ion-col>
+                        <ion-col>
+                            <button ion-button clear block small color="primary" icon-left (click)="verProducto(producto)">
+                                <ion-icon name='eye'></ion-icon>
+                                Ver
+                            </button>
+                        </ion-col>
+                    </ion-row>
+
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-list *ngIf="api.vista == 'list'">
+        <button ion-item  *ngFor="let producto of productos" (click)="verProducto(producto)">
+            <ion-thumbnail item-left>
+                <img [src]="producto.image_url" alt="sin imagen">
+            </ion-thumbnail>
+            <h2 text-center ion-text color="primary">
+                {{producto.name}}
+            </h2>
+            <div>
+                <b>Referencia:</b>  <span> {{ producto.referencia }} </span>
+                <div *ngIf="producto.mostrar_precio">
+                    <b>Precio:</b> <span>{{ producto.precio | currency:'USD':true }}</span> <br>
+                </div>
+                <div *ngIf="producto.mostrar_stock">
+                    <b>Stock:</b>  <span> {{ producto.stock }} Disponibles </span>
+                </div>
+            </div>
+            <button ion-button small item-right clear icon-only>
+                <ion-icon name="cart"></ion-icon>
+            </button>
+        </button>
+    </ion-list>
+
+</ion-content>

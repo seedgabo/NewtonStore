@@ -11,12 +11,14 @@ export class Api {
     username:string;
     password:string;
     token:string;
-    // url:string = 'http://newton.eycproveedores.com/newton/public/';
-    url:string = 'http://localhost/newton/public/';
+    url:string = 'http://newton.eycproveedores.com/newton/public/';
+    // url:string = 'http://localhost/newton/public/';
     user:any={token: null};
     pushData:any;
     carrito = [];
     vista='grid';
+    categorias = [27,28,44,45,46,47,48,49,50];
+    index = 0;
     constructor(public http: Http, private platform:Platform, public storage:Storage){
         this.initVar();
     }
@@ -51,8 +53,6 @@ export class Api {
     }
 
     get(uri){
-        this.username= "seedgabo@gmail.com";
-        this.password= "gab23gab";
         return new Promise((resolve,reject) => {
             this.http.get(this.url + "api/" + uri, {headers : this.setHeaders()})
             .map(res => res.json() )
@@ -86,6 +86,19 @@ export class Api {
             this.carrito[index].cantidad_pedidos = producto.cantidad_pedidos;
         }
         this.storage.set("carrito",JSON.stringify(this.carrito));
+    }
+
+    removeFromCart(producto){
+        var index = this.carrito.findIndex((item)=>{
+            return item.id == producto.id;
+        });
+        if(index == -1){
+            return false;
+        }else{
+            this.carrito.splice(index);
+            this.storage.set("carrito",JSON.stringify(this.carrito));
+            return true;
+        }
     }
 
 

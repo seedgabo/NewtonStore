@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{categoria.nombre}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let producto of productos" [ngClass]="{'selected': producto_selected == producto}" (click)="selectproducto(producto)">
+            <ion-thumbnail item-left>
+                <img [src]="producto.image_url" [alt]="producto.name">
+            </ion-thumbnail>
+            <h2>{{producto.name}}</h2>
+            <p>{{producto.descripcion}}</p>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <button ion-button clear color="dark" full [disabled]="!cangoBack()" (click)="atras()">Atrás</button>
+            </ion-col>
+            <ion-col >
+                <button ion-button color="secondary" full [disabled]="!cangoNext()" (click)="siguiente()">Siguiente</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

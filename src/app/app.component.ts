@@ -5,6 +5,7 @@ import { StatusBar, Splashscreen,CodePush,InstallMode } from 'ionic-native';
 import { Home } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
 import { PedidosPage } from '../pages/pedidos/pedidos';
+import { PedidoGuiadoPage } from '../pages/pedido-guiado/pedido-guiado';
 import { LoginPage } from '../pages/login/login';
 import { Api } from '../providers/Api';
 
@@ -32,7 +33,7 @@ export class MyApp {
         this.api.storage.get('user')
         .then((user)=>{
             if(user != undefined)
-                this.rootPage = Home;
+                this.rootPage = PedidoGuiadoPage;
             else
                 this.rootPage = LoginPage;
         });

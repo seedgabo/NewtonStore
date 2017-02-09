@@ -16,6 +16,10 @@
             <h2>{{producto.name}}</h2>
             <p>{{producto.descripcion}}</p>
         </ion-item>
+
+        <ion-item [ngClass]="{'selected': producto_selected == udnefined}"  (click)="selectproducto('none')">
+            <h2>Ninguno</h2>
+        </ion-item>
     </ion-list>
 </ion-content>
 

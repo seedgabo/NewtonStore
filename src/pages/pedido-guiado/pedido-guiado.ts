@@ -37,16 +37,23 @@ export class PedidoGuiadoPage {
 
 
   selectproducto(producto){
-      this.producto_selected = producto;
+      if (producto == 'none') {
+          this.producto_selected = undefined;
+      }else{
+          this.producto_selected = producto;
+      }
   }
 
   siguiente(){
-      this.api.addToCart(this.producto_selected);
-      this.navCtrl.push(PedidoGuiadoPage, {categoria: {id: this.api.categorias[++this.api.index]}}, {animation: "fadeIn"});
+      if (this.producto_selected != undefined) {
+          this.api.addToCart(this.producto_selected);
+      }
+      this.navCtrl.push(PedidoGuiadoPage, {categoria: {id: this.api.categorias[++this.api.index]}}, {animation: "ios-transition"});
   }
 
   atras(){
       if(this.navCtrl.canGoBack()){
+          this.api.index--;
           this.api.removeFromCart(this.api.carrito.length -1);
           this.navCtrl.pop();
       }

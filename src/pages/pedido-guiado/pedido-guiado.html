@@ -30,7 +30,8 @@
                 <button ion-button clear color="dark" full [disabled]="!cangoBack()" (click)="atras()">Atrás</button>
             </ion-col>
             <ion-col >
-                <button ion-button color="secondary" full [disabled]="!cangoNext()" (click)="siguiente()">Siguiente</button>
+                <button ion-button color="secondary" full [hidden]="!cangoNext()" (click)="siguiente()">Siguiente</button>
+                <button ion-button color="secondary" full [hidden]="cangoNext()" (click)="terminar()">Terminar Pedido</button>
             </ion-col>
         </ion-row>
     </ion-grid>

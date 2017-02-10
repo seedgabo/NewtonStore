@@ -1,0 +1,15 @@
+page-pedido-restringido {
+    .orden::-webkit-outer-spin-button,
+    .orden::-webkit-inner-spin-button{
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .orden{
+        width: 35px;
+        border-width: 0px 0px 1px 0px;
+        border-style: solid;
+        border-color: color($colors,"primary");
+        text-align: center;
+        font-size: 1.2em;
+    }
+}

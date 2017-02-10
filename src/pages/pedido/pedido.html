@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Mi Pedido</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+    <ion-list>
+        <ion-item *ngFor="let prod of api.carrito">
+            <ion-avatar item-left>
+                <img [src]="prod.image_url" alt="">
+            </ion-avatar>
+           <h3>{{prod.name}}</h3>
+           <ion-badge item-right>{{prod.cantidad_pedidos}}</ion-badge>
+        </ion-item>
+    </ion-list>
+</ion-content>

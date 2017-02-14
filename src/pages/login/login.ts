@@ -24,8 +24,10 @@ export class LoginPage {
                 this.alert.create({title:"Error",message:"El uso de esta aplicación esta restringido a clientes",buttons: ["Ok"]}).present();
                 return
             }
+
             this.api.saveUser(response);
             this.api.saveData()
+            this.api.user = response;
             // this.navCtrl.setRoot(Home);
             this.navCtrl.setRoot(PedidoGuiadoPage);
         }).catch((err)=>{

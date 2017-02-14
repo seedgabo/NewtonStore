@@ -17,8 +17,8 @@ export class Api {
     pushData:any;
     carrito = [];
     vista='grid';
-    // categorias = [44,27,46,47,48,49,26,45,50,51,52,53];
-    categorias = [44,27];
+    categorias = [44,27,46,47,48,49,26,45,50,51,52,53];
+    // categorias = [44,27];
     index = 0;
     constructor(public http: Http, private platform:Platform, public storage:Storage){
         this.initVar();

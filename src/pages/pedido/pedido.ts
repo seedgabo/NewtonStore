@@ -35,7 +35,7 @@ export class PedidoPage {
             if(prod.id != 0)
                 data.items.push(prod);
         });
-
+        console.log(data);
         var loading = this.loading.create({content:"Procesando Pedido",})
         loading.present();
         this.api.post("pedidos",data)

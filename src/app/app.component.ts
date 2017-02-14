@@ -14,7 +14,7 @@ import { Api } from '../providers/Api';
 })
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
-    rootPage: any = Home;
+    rootPage: any;
     pages: Array<{title: string, component: any, icon:string}>;
 
     constructor(public platform: Platform,public api:Api) {
@@ -22,9 +22,9 @@ export class MyApp {
 
         // used for an example of ngFor and navigation
         this.pages = [
-            { title: 'Home', component: Home, icon:'home' },
-            { title: 'Carrito', component: Page2, icon:'cart' },
-            { title: 'Pedidos', component: PedidosPage, icon: 'albums'}
+            // { title: 'Home', component: Home, icon:'home' },
+            // { title: 'Carrito', component: Page2, icon:'cart' },
+            // { title: 'Pedidos', component: PedidosPage, icon: 'albums'}
         ];
 
     }

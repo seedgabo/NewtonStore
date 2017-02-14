@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar color="primary">
+  <ion-navbar hideBackButton  color="primary">
     <ion-title>{{categoria.nombre}}</ion-title>
   </ion-navbar>
 
@@ -31,7 +31,7 @@
             </ion-col>
             <ion-col >
                 <button ion-button color="secondary" full [hidden]="!cangoNext()" (click)="siguiente()">Siguiente</button>
-                <button ion-button color="secondary" full [hidden]="cangoNext()" (click)="terminar()">Terminar Pedido</button>
+                <button ion-button color="secondary" full [hidden]="cangoNext()" (click)="terminar()">Contiuar Pedido</button>
             </ion-col>
         </ion-row>
     </ion-grid>

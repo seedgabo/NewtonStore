@@ -17,7 +17,8 @@ export class Api {
     pushData:any;
     carrito = [];
     vista='grid';
-    categorias = [27,28,44,45];
+    // categorias = [44,27,46,47,48,49,26,45,50,51,52,53];
+    categorias = [44,27];
     index = 0;
     constructor(public http: Http, private platform:Platform, public storage:Storage){
         this.initVar();
@@ -27,7 +28,7 @@ export class Api {
         this.storage.get("username").then( (data)  => data != undefined ? this.username = data : '' );
         this.storage.get("password").then( (data)  =>  data != undefined ? this.password = data : '' );
         this.storage.get("user").then( (data)      =>  data!=undefined ? this.user = JSON.parse(data): {} );
-        this.storage.get("carrito").then( (data)      =>  data!=undefined ? this.carrito = JSON.parse(data): [] );
+        // this.storage.get("carrito").then( (data)      =>  data!=undefined ? this.carrito = JSON.parse(data): [] );
     }
 
     saveData () {
@@ -101,6 +102,13 @@ export class Api {
         }
     }
 
+    clearCarrito(){
+        return new Promise((resolve,reject)=>{
+            this.carrito = [];
+            this.storage.set("carrito",JSON.stringify(this.carrito));
+            resolve(true);
+        })
+    }
 
     postPushtoken(data){
           return new Promise((resolve,reject) => {

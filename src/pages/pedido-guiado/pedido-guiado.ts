@@ -8,15 +8,15 @@ import { PedidoRestringidoPage } from '../pedido-restringido/pedido-restringido'
 })
 export class PedidoGuiadoPage {
 
-    categoria:any = {nombre: "Cargando...", id: 27};
+    categoria:any = {nombre: "Cargando...", id: 44};
     productos:any = [];
     producto_selected = undefined;
     constructor(public navCtrl: NavController, public params: NavParams, public api:Api) {
-        this.categoria = params.get('categoria') != undefined ?params.get('categoria') : this.categoria;
-        console.log(this.categoria);
     }
 
     ionViewDidLoad() {
+        this.categoria = this.params.get('categoria') != undefined ?this.params.get('categoria') : {nombre: "Cargando...", id: this.api.categorias[this.api.index]};
+        console.log(this.categoria);
         this.api.get(`productos?where[active]=1&where[categoria_id]=${this.categoria.id}`)
         .then((data)=>{
             this.productos = data;
@@ -35,7 +35,6 @@ export class PedidoGuiadoPage {
             console.error(err);
         });
     }
-
 
     selectproducto(producto){
         if (producto == 'none') {
@@ -64,6 +63,12 @@ export class PedidoGuiadoPage {
     }
 
     terminar(){
+        if (this.producto_selected != undefined) {
+            this.producto_selected.cantidad_pedidos = 1;
+            this.api.addToCart(this.producto_selected);
+        }else{
+            this.api.addToCart({name:"",image_url:"",cantidad_pedidos: 0,id:0, categoria_id:0});
+        }
         this.navCtrl.push(PedidoRestringidoPage, {}, {animation: "ios-transition"});
     }
 
@@ -74,4 +79,6 @@ export class PedidoGuiadoPage {
     cangoBack(){
         return this.navCtrl.canGoBack();
     }
+
+
 }

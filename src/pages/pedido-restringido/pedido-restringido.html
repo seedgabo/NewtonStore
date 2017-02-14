@@ -1,6 +1,6 @@
 <ion-header>
 
-    <ion-navbar color="primary">
+    <ion-navbar hideBackButton  color="primary">
         <ion-title>{{categoria.nombre? categoria.nombre : 'Perifericos'}}</ion-title>
     </ion-navbar>
 
@@ -25,5 +25,5 @@
 </ion-content>
 
 <ion-footer>
-    <button ion-button full color="secondary" [disabled]="!pedidoValido()" (click)="verPedido()">Completar Pedido</button>
+    <button ion-button full color="secondary" [disabled]="!pedidoValido()" (click)="verPedido()">Confirmar Pedido</button>
 </ion-footer>

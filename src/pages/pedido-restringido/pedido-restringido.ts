@@ -63,7 +63,15 @@ export class PedidoRestringidoPage {
     }
 
     pedidoValido(){
-        return this.max_pedido == this.totalPedido();
+        return this.max_pedido >= this.totalPedido();
+    }
+
+    atras(){
+        if(this.navCtrl.canGoBack()){
+            this.api.index--;
+            this.api.removeFromCart(this.api.carrito.length -1);
+            this.navCtrl.pop();
+        }
     }
 
     verPedido(){

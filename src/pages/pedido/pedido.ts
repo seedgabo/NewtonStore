@@ -7,6 +7,7 @@ import {Api} from '../../providers/Api';
 })
 export class PedidoPage {
     productos = [];
+    procesado=false;
     constructor(public navCtrl: NavController, public navParams: NavParams, public api:Api, public loading:LoadingController,public toast:ToastController,public alert:AlertController) {}
 
     ionViewDidLoad(){
@@ -24,6 +25,13 @@ export class PedidoPage {
         });
     }
 
+    atras(){
+        this.api.carrito.filter((prod)=>{
+            return prod.categoria_id != 39;
+        });
+        this.navCtrl.pop()
+    }
+
     processCarrito(){
         var data:any = {items:[]};
         data.user_id = this.api.user.id;
@@ -36,13 +44,19 @@ export class PedidoPage {
                 data.items.push(prod);
         });
         console.log(data);
-        var loading = this.loading.create({content:"Procesando Pedido",})
+        var loading = this.loading.create({content:`
+            <div class="loader">
+                <img src="${this.api.url + "img/logo.png"}"/>
+            </div>
+            Procesando Pedido`,
+            spinner:'hide'})
         loading.present();
         this.api.post("pedidos",data)
         .then((data)=>{
             loading.dismiss().then(()=>{
                 this.productos = [];
                 this.api.clearCarrito();
+                this.procesado = true;
                 this.toast.create({message:"Pedido Procesado",duration:3000}).present();
             });
             console.log(data);

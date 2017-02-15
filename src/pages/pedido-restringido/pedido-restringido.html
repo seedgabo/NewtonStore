@@ -25,5 +25,14 @@
 </ion-content>
 
 <ion-footer>
-    <button ion-button full color="secondary" [disabled]="!pedidoValido()" (click)="verPedido()">Confirmar Pedido</button>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <button ion-button clear color="dark" full (click)="atras()">Atrás</button>
+            </ion-col>
+            <ion-col >
+                    <button ion-button full color="secondary" [disabled]="!pedidoValido()" (click)="verPedido()">Confirmar Pedido</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-footer>

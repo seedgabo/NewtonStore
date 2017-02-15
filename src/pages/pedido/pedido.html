@@ -5,20 +5,35 @@
     </ion-navbar>
 
 </ion-header>
+
 <ion-content padding>
     <ion-list *ngIf="productos.length >0">
         <ion-item *ngFor="let prod of productos">
             <ion-avatar item-left>
                 <img [src]="prod.image_url" alt="">
             </ion-avatar>
-            <h3>{{prod.name}}</h3>
+            <h3>{{prod.name}}
+                <ion-badge color="favorite" *ngIf="prod.categoria_id == 39">Periferico</ion-badge>
+            </h3>
             <ion-badge item-right>{{prod.cantidad_pedidos}}</ion-badge>
         </ion-item>
     </ion-list>
-    <ion-card *ngIf="productos.length == 0">
-        <h2>No hay nada en el carrito</h2>
+    <ion-card *ngIf="productos.length == 0 && procesado == false">
+        <h1>
+            No hay nada en el carrito
+        </h1>
 
     </ion-card>
+
+    <div style="text-align:center;vertical-align:middle;height:90%;" *ngIf="productos.length == 0 && procesado == true">
+        <h2>Su Pedido fue Procesado Correctamente</h2>
+
+        <ion-icon style="display:block; font-size:68px;" large color="secondary" name="checkmark-circle"></ion-icon>
+
+        <button ion-button outline color="primary" large> Ver Pedido</button>
+
+
+    </div>
 </ion-content>
 
 
@@ -27,7 +42,7 @@
     <ion-grid>
         <ion-row>
             <ion-col>
-                <button ion-button outline color="dark" full (click)="clearCarrito()">Limpiar Carrito</button>
+                <button ion-button outline color="dark" full (click)="atras()">Atras</button>
             </ion-col>
             <ion-col>
                 <button ion-button full  color="secondary" (click)="processCarrito()" [disabled]="productos.length == 0">Confirmar Pedido</button>

@@ -28,8 +28,27 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  favorite:   rgb(161, 12, 74)
 );
+
+.loader{
+    text-align: center;
+    img{
+        height: 120px;
+        animation-name: bind;
+        animation-duration: 1s;
+        animation-fill-mode: both;
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+}
+
+@keyframes bind{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
 
 
 // App iOS Variables

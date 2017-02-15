@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,LoadingController,AlertController } from 'ionic-angular';
 import { Api } from '../../providers/Api';
 import { PedidoRestringidoPage } from '../pedido-restringido/pedido-restringido';
 import * as moment from 'moment';
@@ -13,7 +13,7 @@ export class PedidoGuiadoPage {
     productos:any = [];
     producto_selected = undefined;
     servicio;
-    constructor(public navCtrl: NavController, public params: NavParams, public api:Api) {
+    constructor(public navCtrl: NavController, public params: NavParams, public api:Api, public loading:LoadingController, public alert:AlertController) {
         var now = moment();
         var almuerzo_inicio = moment().hour(12).minutes(0).seconds(0);
         var almuerzo_final = moment().hour(17).minutes(0).seconds(0);
@@ -30,24 +30,34 @@ export class PedidoGuiadoPage {
     }
 
     ionViewDidLoad() {
+
         this.categoria = this.params.get('categoria') != undefined ?this.params.get('categoria') : {nombre: "Cargando...", id: this.api.categorias[this.api.index]};
         console.log(this.categoria);
         this.api.get(`productos?where[active]=1&where[categoria_id]=${this.categoria.id}`)
         .then((data)=>{
             this.productos = data;
-            //   console.log(data);
         })
         .catch((err)=>{
             console.error(err);
+            this.alert.create({title:"Error",message:"Ocurrio un error al cargar los pagina",buttons: ["OK"]}).present();
         });
-
+        var loading = this.loading.create({content:`
+            <div class="loader">
+                <img src="${this.api.url + "img/logo.png"}"/>
+            </div>
+            Cargando Productos`,
+            spinner:'hide'});
+        loading.present();
         this.api.get(`categorias-productos?where[id]=${this.categoria.id}&with[]=banner&with[]=image`)
         .then((data)=>{
             this.categoria = data[0];
-            //   console.log(data);
+            loading.dismiss();
         })
         .catch((err)=>{
             console.error(err);
+            loading.dismiss().then(()=>{
+                this.alert.create({title:"Error",message:"Ocurrio un error al cargar los pagina",buttons: ["OK"]}).present();
+            });
         });
     }
 

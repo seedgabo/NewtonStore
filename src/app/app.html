@@ -11,6 +11,10 @@
           <ion-icon [name]="p.icon" item-left color="primary"></ion-icon>
         {{p.title}}
       </button>
+      <button menuClose ion-item  (click)="verperfil()">
+          <ion-icon name="person" item-left color="primary"></ion-icon>
+          Mi Perfil
+      </button>
       <button menuClose ion-item  (click)="logout()">
           <ion-icon name="log-out" item-left color="primary"></ion-icon>
           Cerrar Sesión

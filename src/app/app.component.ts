@@ -7,6 +7,7 @@ import { Page2 } from '../pages/page2/page2';
 import { PedidosPage } from '../pages/pedidos/pedidos';
 import { PedidoGuiadoPage } from '../pages/pedido-guiado/pedido-guiado';
 import { LoginPage } from '../pages/login/login';
+import { ProfilePage } from '../pages/profile/profile';
 import { Api } from '../providers/Api';
 
 @Component({
@@ -22,6 +23,7 @@ export class MyApp {
 
         // used for an example of ngFor and navigation
         this.pages = [
+                // {title: 'Mi Perfil', component: ProfilePage, icon: 'person'}
             // { title: 'Home', component: Home, icon:'home' },
             // { title: 'Carrito', component: Page2, icon:'cart' },
             // { title: 'Pedidos', component: PedidosPage, icon: 'albums'}
@@ -52,6 +54,9 @@ export class MyApp {
             this.nav.setRoot(page.component);
     }
 
+    verperfil(){
+        this.nav.push(ProfilePage);
+    }
 
     logout(){
         this.nav.setRoot(LoginPage);

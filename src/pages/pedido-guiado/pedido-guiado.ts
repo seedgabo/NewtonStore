@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Api } from '../../providers/Api';
 import { PedidoRestringidoPage } from '../pedido-restringido/pedido-restringido';
+import * as moment from 'moment';
 @Component({
     selector: 'page-pedido-guiado',
     templateUrl: 'pedido-guiado.html'
@@ -11,7 +12,21 @@ export class PedidoGuiadoPage {
     categoria:any = {nombre: "Cargando...", id: 44};
     productos:any = [];
     producto_selected = undefined;
+    servicio;
     constructor(public navCtrl: NavController, public params: NavParams, public api:Api) {
+        var now = moment();
+        var almuerzo_inicio = moment().hour(12).minutes(0).seconds(0);
+        var almuerzo_final = moment().hour(17).minutes(0).seconds(0);
+
+        var comida_inicio = moment().hour(5).minutes(0).seconds(0);
+        var comida_final = moment().hour(12).minutes(0).seconds(0);
+
+        if(moment().isBetween(almuerzo_inicio, almuerzo_final))
+            this.servicio = "Almuerzo";
+        else if(moment().isBetween(comida_inicio, comida_final))
+            this.servicio = "Comida";
+        else
+            this.servicio = "Cena";
     }
 
     ionViewDidLoad() {
@@ -42,6 +57,7 @@ export class PedidoGuiadoPage {
         }else{
             this.producto_selected = producto;
         }
+        this.siguiente();
     }
 
     siguiente(){

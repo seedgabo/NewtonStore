@@ -57,7 +57,10 @@ export class PedidoGuiadoPage {
         }else{
             this.producto_selected = producto;
         }
-        this.siguiente();
+        if (this.cangoNext())
+            this.siguiente();
+        else
+            this.terminar();
     }
 
     siguiente(){

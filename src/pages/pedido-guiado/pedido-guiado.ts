@@ -41,23 +41,21 @@ export class PedidoGuiadoPage {
             console.error(err);
             this.alert.create({title:"Error",message:"Ocurrio un error al cargar los pagina",buttons: ["OK"]}).present();
         });
-        var loading = this.loading.create({content:`
-            <div class="loader">
-                <img src="${this.api.url + "img/logo.png"}"/>
-            </div>
-            Cargando Productos`,
-            spinner:'hide'});
-        loading.present();
+        // var loading = this.loading.create({content:`
+        //     <div class="loader">
+        //         <img src="${this.api.url + "img/logo.png"}"/>
+        //     </div>
+        //     Cargando Productos`,
+        //     spinner:'hide'});
+        // loading.present();
         this.api.get(`categorias-productos?where[id]=${this.categoria.id}&with[]=banner&with[]=image`)
         .then((data)=>{
             this.categoria = data[0];
-            loading.dismiss();
+            // loading.dismiss();
         })
         .catch((err)=>{
             console.error(err);
-            loading.dismiss().then(()=>{
-                this.alert.create({title:"Error",message:"Ocurrio un error al cargar los pagina",buttons: ["OK"]}).present();
-            });
+            this.alert.create({title:"Error",message:"Ocurrio un error al cargar los pagina",buttons: ["OK"]}).present();
         });
     }
 

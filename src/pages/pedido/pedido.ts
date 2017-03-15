@@ -39,6 +39,7 @@ export class PedidoPage {
         data.fecha_envio = (new Date()).toISOString().substring(0,10);
         data.fecha_entrega = (new Date()).toISOString().substring(0,10);
         data.estado = "Pedido";
+		data.facturar = false;
         this.api.carrito.forEach((prod)=>{
             if(prod.id != 0)
                 data.items.push(prod);

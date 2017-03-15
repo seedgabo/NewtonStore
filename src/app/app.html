@@ -14,11 +14,11 @@
           <ion-icon [name]="p.icon" item-left color="primary"></ion-icon>
         {{p.title}}
       </button>
-      <button menuClose ion-item  (click)="verperfil()">
+      <button menuClose ion-item  (click)="verperfil()" *ngIf="api.user.token != null">
           <ion-icon name="person" item-left color="primary"></ion-icon>
           Mi Perfil
       </button>
-      <button menuClose ion-item  (click)="logout()">
+      <button menuClose ion-item  (click)="logout()" *ngIf="api.user.token != null">
           <ion-icon name="log-out" item-left color="primary"></ion-icon>
           Cerrar Sesión
       </button>

@@ -11,7 +11,7 @@ import { PedidoGuiadoPage } from '../pages/pedido-guiado/pedido-guiado';
 import { PedidoRestringidoPage } from '../pages/pedido-restringido/pedido-restringido';
 import { LoginPage } from '../pages/login/login';
 import { Api } from '../providers/Api';
-import { Storage } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage';
 import {MomentModule} from 'angular2-moment';
 
 @NgModule({
@@ -29,6 +29,7 @@ import {MomentModule} from 'angular2-moment';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+	IonicStorageModule.forRoot(),
     MomentModule
   ],
   bootstrap: [IonicApp],

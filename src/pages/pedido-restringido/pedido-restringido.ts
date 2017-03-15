@@ -69,7 +69,7 @@ export class PedidoRestringidoPage {
     atras(){
         if(this.navCtrl.canGoBack()){
             // this.api.index--;
-            this.api.removeFromCart(this.api.carrito.length -1);
+            this.api.removeFromCart(this.api.carrito[this.api.carrito.length -1]);
             this.navCtrl.pop();
         }
     }

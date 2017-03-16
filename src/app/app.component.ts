@@ -1,9 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen,CodePush,InstallMode } from 'ionic-native';
-
-import { Home } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
 import { PedidosPage } from '../pages/pedidos/pedidos';
 import { PedidoGuiadoPage } from '../pages/pedido-guiado/pedido-guiado';
 import { LoginPage } from '../pages/login/login';
@@ -57,6 +54,10 @@ export class MyApp {
     verperfil(){
         this.nav.push(ProfilePage);
     }
+
+	verMisPedidos(){
+		this.nav.push(PedidosPage);
+	}
 
     logout(){
         this.nav.setRoot(LoginPage);

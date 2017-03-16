@@ -14,7 +14,9 @@ import { LoginPage } from '../pages/login/login';
 import { Api } from '../providers/Api';
 import { IonicStorageModule } from '@ionic/storage';
 import {MomentModule} from 'angular2-moment';
-
+import * as moment from 'moment';
+import 'moment/min/locales';
+moment.locale("es");
 @NgModule({
   declarations: [
     MyApp,

@@ -10,11 +10,11 @@
 <ion-content padding>
     <ion-card>
         <ion-list>
-            <button ion-item *ngFor="let pedido of pedidos">
+            <button ion-item *ngFor="let pedido of pedidos" (click)="verPedido(pedido)">
                 <ion-badge item-left>
 					# {{pedido.id}}
 				</ion-badge>
-				Del {{pedido.fecha_pedido | amCalendar}}
+				Del {{pedido.fecha_pedido | amDateFormat:'LL'}}
             </button>
         </ion-list>
     </ion-card>

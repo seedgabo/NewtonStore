@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,LoadingController,ToastController,AlertController } from 'ionic-angular';
+import {VerPedidoPage} from '../ver-pedido/ver-pedido';
 import {Api} from '../../providers/Api';
 @Component({
     selector: 'page-pedido',
@@ -8,6 +9,7 @@ import {Api} from '../../providers/Api';
 export class PedidoPage {
     productos = [];
     procesado=false;
+	pedido = null;
     constructor(public navCtrl: NavController, public navParams: NavParams, public api:Api, public loading:LoadingController,public toast:ToastController,public alert:AlertController) {}
 
     ionViewDidLoad(){
@@ -58,6 +60,7 @@ export class PedidoPage {
                 this.productos = [];
                 this.api.clearCarrito();
                 this.procesado = true;
+				this.pedido = data;
                 this.toast.create({message:"Pedido Procesado",duration:3000}).present();
             });
             console.log(data);
@@ -68,5 +71,9 @@ export class PedidoPage {
             });
         });
     }
+
+	verPedido(){
+		this.navCtrl.setRoot(VerPedidoPage,{pedido:this.pedido});
+	}
 
 }

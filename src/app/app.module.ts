@@ -9,6 +9,7 @@ import { PedidoPage } from '../pages/pedido/pedido';
 import { ProfilePage } from '../pages/profile/profile';
 import { PedidoGuiadoPage } from '../pages/pedido-guiado/pedido-guiado';
 import { PedidoRestringidoPage } from '../pages/pedido-restringido/pedido-restringido';
+import {VerPedidoPage} from '../pages/ver-pedido/ver-pedido';
 import { LoginPage } from '../pages/login/login';
 import { Api } from '../providers/Api';
 import { IonicStorageModule } from '@ionic/storage';
@@ -25,6 +26,7 @@ import {MomentModule} from 'angular2-moment';
     PedidoGuiadoPage,
     PedidoRestringidoPage,
     ProfilePage,
+	VerPedidoPage,
     LoginPage
   ],
   imports: [
@@ -43,6 +45,7 @@ import {MomentModule} from 'angular2-moment';
     PedidoGuiadoPage,
     PedidoRestringidoPage,
     ProfilePage,
+	VerPedidoPage,
     LoginPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Api,Storage]

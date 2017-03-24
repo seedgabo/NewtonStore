@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Platform} from 'ionic-angular';
-import {Push, Transfer} from 'ionic-native';
+import {Push} from 'ionic-native';
 import {Http, Headers} from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
@@ -11,7 +11,7 @@ export class Api {
     username:string;
     password:string;
     token:string;
-    url:string = 'http://newton.eycproveedores.com/newton/public/';
+    url:string = 'http://seguimiento.duflosa.com:8080/pedidos/public/';
     // url:string = 'http://localhost/newton/public/';
     user:any={token: null};
     pushData:any;

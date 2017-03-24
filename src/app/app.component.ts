@@ -31,8 +31,10 @@ export class MyApp {
     initializeApp() {
         this.api.storage.get('user')
         .then((user)=>{
-            if(user != undefined)
+            if(user != undefined){
                 this.rootPage = PedidoGuiadoPage;
+				this.updateUser();
+			}
             else
                 this.rootPage = LoginPage;
         });
@@ -46,6 +48,17 @@ export class MyApp {
                 (err)=>{console.warn(err)});
             });
     }
+
+	updateUser(){
+		this.api.doLogin().then((response)=>{
+            this.api.saveUser(response);
+            this.api.saveData();
+            this.api.user = response;
+		})
+		.catch((err)=>{
+			console.error(err);
+		});
+	}
 
     openPage(page) {
             this.nav.setRoot(page.component);

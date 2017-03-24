@@ -10,9 +10,9 @@
 <ion-content>
     <ion-list>
         <ion-item *ngFor="let producto of productos" [ngClass]="{'selected': producto_selected == producto}" (click)="selectproducto(producto)">
-            <ion-thumbnail item-left>
+            <ion-avatar item-left>
                 <img [src]="producto.image_url" [alt]="producto.name">
-            </ion-thumbnail>
+            </ion-avatar>
             <h2>{{producto.name}}</h2>
             <p>{{producto.descripcion}}</p>
         </ion-item>

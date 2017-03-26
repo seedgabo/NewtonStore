@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {Api} from '../../providers/Api';
-import * as moment from 'moment';
+// import * as moment from 'moment';
 import { VerPedidoPage } from "../ver-pedido/ver-pedido";
 @Component({
   selector: 'page-pedidos',

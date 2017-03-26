@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 
-import { CodePush,InstallMode } from '@ionic-native/code-push';
+import { CodePush,InstallMode} from '@ionic-native/code-push';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 

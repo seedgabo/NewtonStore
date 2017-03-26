@@ -14,7 +14,7 @@ export class PedidoGuiadoPage {
     producto_selected = undefined;
     servicio;
     constructor(public navCtrl: NavController, public params: NavParams, public api:Api, public loading:LoadingController, public alert:AlertController) {
-        var now = moment();
+        // var now = moment();
         var almuerzo_inicio = moment().hour(12).minutes(0).seconds(0);
         var almuerzo_final = moment().hour(17).minutes(0).seconds(0);
 

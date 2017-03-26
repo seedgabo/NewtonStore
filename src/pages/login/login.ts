@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,AlertController,LoadingController } from 'ionic-angular';
 import { Api  } from '../../providers/Api';
-import { Home } from '../page1/page1';
+// import { Home } from '../page1/page1';
 import { PedidoGuiadoPage } from '../pedido-guiado/pedido-guiado';
 @Component({
     selector: 'page-login',

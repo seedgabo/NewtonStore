@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Platform} from 'ionic-angular';
 import {Push} from 'ionic-native';
 import {Http, Headers} from '@angular/http';
-import { Observable } from "rxjs/Observable";
+// import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
 

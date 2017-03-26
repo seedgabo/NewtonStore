@@ -16,6 +16,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import {MomentModule} from 'angular2-moment';
 import * as moment from 'moment';
 import 'moment/min/locales';
+import {CodePush} from '@ionic-native/code-push';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {StatusBar} from '@ionic-native/status-bar';
 moment.locale("es");
 @NgModule({
   declarations: [
@@ -50,6 +53,8 @@ moment.locale("es");
 	VerPedidoPage,
     LoginPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Api,Storage]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Api,Storage,
+  	CodePush, SplashScreen, StatusBar,
+  ]
 })
 export class AppModule {}

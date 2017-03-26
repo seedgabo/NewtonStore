@@ -1,6 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen,CodePush,InstallMode } from 'ionic-native';
+
+import { CodePush,InstallMode } from '@ionic-native/code-push';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+
 import { PedidosPage } from '../pages/pedidos/pedidos';
 import { PedidoGuiadoPage } from '../pages/pedido-guiado/pedido-guiado';
 import { LoginPage } from '../pages/login/login';
@@ -15,7 +19,8 @@ export class MyApp {
     rootPage: any;
     pages: Array<{title: string, component: any, icon:string}>;
 
-    constructor(public platform: Platform,public api:Api) {
+    constructor(public platform: Platform,public api:Api,
+	public codepush:CodePush, public statusbar:StatusBar, public splashscreen:SplashScreen) {
         this.initializeApp();
 
         // used for an example of ngFor and navigation
@@ -40,10 +45,10 @@ export class MyApp {
         });
 
         this.platform.ready().then(() => {
-            StatusBar.styleDefault();
-            Splashscreen.hide();
+            this.statusbar.styleDefault();
+            this.splashscreen.hide();
             const downloadProgress = (progress) => { console.log(`Downloaded ${progress.receivedBytes} of ${progress.totalBytes}`); }
-            CodePush.sync({ updateDialog: true, installMode: InstallMode.ON_NEXT_RESUME, }, downloadProgress).subscribe(
+            this.codepush.sync({ updateDialog: true, installMode: InstallMode.ON_NEXT_RESUME, }, downloadProgress).subscribe(
                 (syncStatus) => console.log(syncStatus),
                 (err)=>{console.warn(err)});
             });

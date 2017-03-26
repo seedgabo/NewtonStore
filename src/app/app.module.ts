@@ -18,7 +18,8 @@ import * as moment from 'moment';
 import 'moment/min/locales';
 import {CodePush} from '@ionic-native/code-push';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {StatusBar} from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar';
+import { HomePage } from "../pages/home/home";
 moment.locale("es");
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ moment.locale("es");
     PedidoRestringidoPage,
     ProfilePage,
 	VerPedidoPage,
-    LoginPage
+	HomePage,
+    LoginPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -51,7 +53,8 @@ moment.locale("es");
     PedidoRestringidoPage,
     ProfilePage,
 	VerPedidoPage,
-    LoginPage
+	HomePage,
+    LoginPage,
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Api,Storage,
   	CodePush, SplashScreen, StatusBar,

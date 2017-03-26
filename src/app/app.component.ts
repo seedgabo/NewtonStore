@@ -6,17 +6,17 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { PedidosPage } from '../pages/pedidos/pedidos';
-import { PedidoGuiadoPage } from '../pages/pedido-guiado/pedido-guiado';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 import { Api } from '../providers/Api';
+import { HomePage } from "../pages/home/home";
 
 @Component({
     templateUrl: 'app.html'
 })
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
-    rootPage: any;
+    rootPage: any = HomePage;
     pages: Array<{title: string, component: any, icon:string}>;
 
     constructor(public platform: Platform,public api:Api,
@@ -34,15 +34,7 @@ export class MyApp {
     }
 
     initializeApp() {
-        this.api.storage.get('user')
-        .then((user)=>{
-            if(user != undefined){
-                this.rootPage = PedidoGuiadoPage;
-				this.updateUser();
-			}
-            else
-                this.rootPage = LoginPage;
-        });
+
 
         this.platform.ready().then(() => {
             this.statusbar.styleDefault();

@@ -9,5 +9,16 @@ page-login {
      }
 }
 .auth{
-    background-image: url("http://newton.eycproveedores.com/newton/public/img/fondo (1).jpg");
+	background-image: url("http://newton.eycproveedores.com/newton/public/img/fondo (1).jpg");
+	.login-form{
+		animation: 1s linear;
+		animation-name: fade;
+		opacity: 1;
+	}
 }
+
+@keyframes fade {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+

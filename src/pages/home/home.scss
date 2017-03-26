@@ -1,3 +1,9 @@
 page-home {
-
+	.home{
+		background-image: url("http://newton.eycproveedores.com/newton/public/img/fondo (1).jpg");
+	}
+	.dissapear{
+		transition: 1s;
+		opacity: 0;
+	}
 }

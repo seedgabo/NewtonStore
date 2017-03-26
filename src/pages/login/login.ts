@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { Component } from '@angular/core';
 import { NavController, NavParams,AlertController,LoadingController } from 'ionic-angular';
 import { Api  } from '../../providers/Api';
@@ -29,7 +30,12 @@ export class LoginPage {
             this.api.saveData()
             this.api.user = response;
             // this.navCtrl.setRoot(Home);
-            this.navCtrl.setRoot(PedidoGuiadoPage);
+			this.api
+			.get(`programacion-pedidos?where[fecha]=${moment().format('Y-M-D')}&where[cliente_id]=${this.api.user.cliente_id}`)
+			.then((data)=>{
+				console.log(data);
+				this.navCtrl.setRoot(PedidoGuiadoPage);
+			});
         }).catch((err)=>{
             if(err.error == 401){
                 this.alert.create({title:"Error",message:"Email o contraseña invalidos",buttons: ["Ok"]}).present();

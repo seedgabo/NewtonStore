@@ -58,6 +58,7 @@ export class HomePage {
 				this.navCtrl.setRoot(PedidoGuiadoPage);
 			})
 			.catch((err)=>{
+				console.error(err);
 				if(err.error == 401){
 					this.alert.create({title:"Error",message:"Email o contraseña invalidos",buttons: ["Ok"]}).present();
 				}else{

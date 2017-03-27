@@ -1,3 +1,4 @@
+import {VerPedidoPage} from '../ver-pedido/ver-pedido';
 import {LoginPage} from '../login/login';
 import {PedidoGuiadoPage} from '../pedido-guiado/pedido-guiado';
 import {Api} from '../../providers/Api';
@@ -20,7 +21,7 @@ export class HomePage {
 						this.loading = true;
 						this.api.user = JSON.parse(user);
 						this.getProgramacion();
-
+						this.getUser();
 					}
 					else{
 						this.navCtrl.setRoot(LoginPage);
@@ -33,7 +34,7 @@ export class HomePage {
 			(response:any)=>{
 				console.log("last pedido:", response.last_pedido);
 				if (response.last_pedido && moment(response.last_pedido.created_at).isSame(moment(),'day')){
-					console.log("pedido realizado hoy");
+					this.navCtrl.setRoot(VerPedidoPage,{pedido:response.last_pedido});
 				}
 
 				this.api.saveUser(response);

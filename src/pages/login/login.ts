@@ -1,3 +1,4 @@
+import {VerPedidoPage} from '../ver-pedido/ver-pedido';
 import * as moment from 'moment';
 import { Component } from '@angular/core';
 import { NavController, NavParams,AlertController,LoadingController } from 'ionic-angular';
@@ -25,6 +26,10 @@ export class LoginPage {
                 this.alert.create({title:"Error",message:"El uso de esta aplicación esta restringido a clientes",buttons: ["Ok"]}).present();
                 return
             }
+			console.log("last pedido:", response.last_pedido);
+			if (response.last_pedido && moment(response.last_pedido.created_at).isSame(moment(),'day')){
+				this.navCtrl.setRoot(VerPedidoPage,{pedido:response.last_pedido});
+			}
 
             this.api.saveUser(response);
             this.api.saveData()

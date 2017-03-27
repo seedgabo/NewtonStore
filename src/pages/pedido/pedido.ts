@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams,LoadingController,ToastController,AlertController } from 'ionic-angular';
 import {VerPedidoPage} from '../ver-pedido/ver-pedido';
 import {Api} from '../../providers/Api';
+import * as moment from 'moment';
 @Component({
     selector: 'page-pedido',
     templateUrl: 'pedido.html'
@@ -63,6 +64,7 @@ export class PedidoPage {
 				this.pedido = data;
                 this.toast.create({message:"Pedido Procesado",duration:3000}).present();
             });
+			this.api.storage.set('last_pedido', moment().format('Y-M-D'));
             console.log(data);
         })
         .catch((err)=>{

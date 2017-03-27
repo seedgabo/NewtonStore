@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class Api {
+	productos: any = [];
     username:string;
     password:string;
     token:string;
@@ -18,7 +19,6 @@ export class Api {
     carrito = [];
     vista='grid';
     categorias = [44,27,46,47,48,49,26,45,50,51,52,53];
-    // categorias = [44,27];
     index = 0;
     constructor(public http: Http, private platform:Platform, public storage:Storage){
         this.initVar();
@@ -52,6 +52,13 @@ export class Api {
             });
         });
     }
+
+	setProgramacion(programa){
+		if(programa != undefined){
+			this.categorias = JSON.parse(programa.categorias);
+			this.productos = JSON.parse(programa.productos);
+		}
+	}
 
     get(uri){
         return new Promise((resolve,reject) => {

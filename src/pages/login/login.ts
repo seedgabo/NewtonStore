@@ -33,7 +33,7 @@ export class LoginPage {
 			this.api
 			.get(`programacion-pedidos?where[fecha]=${moment().format('Y-M-D')}&where[cliente_id]=${this.api.user.cliente_id}`)
 			.then((data)=>{
-				console.log(data);
+				this.api.setProgramacion(data[0]);
 				this.navCtrl.setRoot(PedidoGuiadoPage);
 			});
         }).catch((err)=>{

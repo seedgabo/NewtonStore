@@ -13,6 +13,7 @@ export class PedidoGuiadoPage {
     productos:any = [];
     producto_selected = undefined;
     servicio;
+	loader = true;
     constructor(public navCtrl: NavController, public params: NavParams, public api:Api, public loading:LoadingController, public alert:AlertController) {
         // var now = moment();
         var almuerzo_inicio = moment().hour(12).minutes(0).seconds(0);
@@ -30,24 +31,22 @@ export class PedidoGuiadoPage {
     }
 
     ionViewDidLoad() {
-
         this.categoria = this.params.get('categoria') != undefined ?this.params.get('categoria') : {nombre: "Cargando...", id: this.api.categorias[this.api.index]};
         console.log(this.categoria);
-        this.api.get(`productos?where[active]=1&where[categoria_id]=${this.categoria.id}`)
+		var uri = `productos?where[active]=1&where[categoria_id]=${this.categoria.id}`;
+		if(this.api.productos != []){
+			uri += `&whereIn[id]=${this.api.productos.join()}`;
+		}
+        this.api.get(uri)
         .then((data)=>{
+			this.loader = false;
             this.productos = data;
         })
         .catch((err)=>{
+			this.loader = false;
             console.error(err);
             this.alert.create({title:"Error",message:"Ocurrio un error al cargar los pagina",buttons: ["OK"]}).present();
         });
-        // var loading = this.loading.create({content:`
-        //     <div class="loader">
-        //         <img src="${this.api.url + "img/logo.png"}"/>
-        //     </div>
-        //     Cargando Productos`,
-        //     spinner:'hide'});
-        // loading.present();
         this.api.get(`categorias-productos?where[id]=${this.categoria.id}&with[]=banner&with[]=image`)
         .then((data)=>{
             this.categoria = data[0];

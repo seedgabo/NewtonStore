@@ -8,6 +8,9 @@
 
 
 <ion-content>
+	<div text-center *ngIf="loader">
+		<ion-spinner color="primary"></ion-spinner>
+	</div>
     <ion-list>
         <ion-item *ngFor="let producto of productos" [ngClass]="{'selected': producto_selected == producto}" (click)="selectproducto(producto)">
             <ion-avatar item-left>

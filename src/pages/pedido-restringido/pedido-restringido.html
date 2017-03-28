@@ -13,7 +13,7 @@
             <ion-thumbnail item-left>
                 <img [src]="per.image_url" alt="{{per.name}}">
             </ion-thumbnail>
-            <h2 text-center ion-text color="primary">{{per.name}}</h2>
+            <p text-center ion-text color="primary">{{per.name}}</p>
             <div text-center>
                 <button ion-button round clear  small icon-only (click)="increment(per)"> <ion-icon name="add-circle"></ion-icon></button>
                 <input readonly item-right type="number" class="orden" [(ngModel)]="per.cantidad_pedidos">

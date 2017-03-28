@@ -1,21 +1,22 @@
 
 <ion-header>
 
-  <ion-navbar color="favorite">
-    <ion-title>Pedido #{{pedido.numero_pedido}} </ion-title>
+  <ion-navbar color="secondary">
+    <ion-title>Mi Pedido</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-	<h3 text-center>Mi Pedido</h3>
+	<h2 text-center color="secondary" text-uppercase>Pedido de {{tipo}}  ya realizado</h2>
     <ion-list>
         <ion-item *ngFor="let prod of pedido.items">
             <ion-avatar item-left *ngIf="prod.image">
                 <img [src]="prod.image.url" alt="">
             </ion-avatar>
             <h3>{{prod.name}}
+				<p [innerHTML]="prod.description"></p>
                 <ion-badge color="favorite" *ngIf="prod.categoria_id == 39">Periferico</ion-badge>
             </h3>
             <ion-badge item-right>{{prod.cantidad_pedidos}}</ion-badge>

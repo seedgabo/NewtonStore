@@ -55,8 +55,10 @@ export class Api {
 
 	setProgramacion(programa){
 		if(programa != undefined){
-			this.categorias = JSON.parse(programa.categorias);
-			this.productos = JSON.parse(programa.productos);
+			if(programa.categorias != '')
+				this.categorias = JSON.parse(programa.categorias);
+			if(programa.productos != '')
+				this.productos = JSON.parse(programa.productos);
 		}
 	}
 

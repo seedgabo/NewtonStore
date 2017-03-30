@@ -82,11 +82,11 @@ export class HomePage {
 		var comida_final = moment().hour(12).minutes(0).seconds(0);
 
 		if (moment().isBetween(almuerzo_inicio, almuerzo_final))
-			return "Almuerzo";
+			return "almuerzo";
 		else if (moment().isBetween(comida_inicio, comida_final))
-			return "Comida";
+			return "comida";
 		else
-			return "Cena";
+			return "cena";
 	}
 
 	getTipo(fecha) {
@@ -98,11 +98,11 @@ export class HomePage {
 		var comida_final = moment().hour(12).minutes(0).seconds(0);
 
 		if (fecha.isBetween(almuerzo_inicio, almuerzo_final))
-			return "Almuerzo";
+			return "almuerzo";
 		else if (fecha.isBetween(comida_inicio, comida_final))
-			return "Comida";
+			return "comida";
 		else
-			return "Cena";
+			return "cena";
 	}
 
 

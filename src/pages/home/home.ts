@@ -56,7 +56,7 @@ export class HomePage {
 
 	getProgramacion() {
 		this.api
-			.get(`programacion-pedidos?where[fecha]=${moment().format('Y-MM-DD')}&where[cliente_id]=${this.api.user.cliente_id}&where[tipo]=${this.getHorario()}`)
+			.get(`programacion-pedidos?where[fecha]=${moment().add(1,'day').format('Y-MM-DD')}&where[cliente_id]=${this.api.user.cliente_id}&where[tipo]=${this.getHorario()}`)
 			.then((data) => {
 				console.log(data);
 				this.api.setProgramacion(data[0]);

@@ -15,7 +15,11 @@ export class PedidoRestringidoPage {
     }
 
     ionViewDidLoad() {
-        this.api.get(`categorias-productos/${this.categoria.id}&with[]=image&with[]=banner`)
+		var uri = `categorias-productos/${this.categoria.id}&with[]=image&with[]=banner&whereIn[id]=`
+		if(this.api.productos != []){
+			uri += `&whereIn[id]=${this.api.productos.join()}`;
+		}
+        this.api.get(uri)
         .then((data)=>{
             this.categoria = data;
             console.log(this.categoria);
@@ -30,6 +34,9 @@ export class PedidoRestringidoPage {
             this.perifericos = data;
             this.perifericos.map((per)=>{
                 per.valor = 1;
+				if(per.id == "17776"){
+					per.valor = 4;
+				}
                 per.cantidad_pedidos = 0;
                 return per;
             })

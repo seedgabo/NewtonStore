@@ -72,7 +72,13 @@ export class MyApp {
 	}
 
     logout(){
-        this.nav.setRoot(LoginPage);
+			this.api.productos= [];
+			this.api.user={token: null};
+			this.api.carrito = [];
+			this.api.tipo = "";
+			this.api.categorias = [44,27,46,47,48,49,26,45,50,51,52,53];
+			this.api.index = 0;
+        	this.nav.setRoot(LoginPage);
     }
 
 }

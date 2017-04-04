@@ -38,10 +38,12 @@ export class PedidoPage {
     processCarrito(){
         var data:any = {items:[]};
         data.user_id = this.api.user.id;
+		data.entidad_id = this.api.user.entidad_id;
         data.cliente_id = this.api.user.cliente_id;
         data.fecha_envio = (new Date()).toISOString().substring(0,10);
         data.fecha_entrega = (new Date()).toISOString().substring(0,10);
         data.estado = "Pedido";
+		data.tipo = this.api.tipo;
 		data.facturar = false;
         this.api.carrito.forEach((prod)=>{
             if(prod.id != 0)

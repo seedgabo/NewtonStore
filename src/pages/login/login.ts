@@ -36,7 +36,7 @@ export class LoginPage {
             this.api.user = response;
             // this.navCtrl.setRoot(Home);
 			this.api
-			.get(`programacion-pedidos?where[fecha]=${moment().format('Y-M-D')}&where[cliente_id]=${this.api.user.cliente_id}`)
+			.get(`programacion-pedidos?where[fecha]=${moment().add(1,'day').format('Y-M-D')}&where[cliente_id]=${this.api.user.cliente_id}`)
 			.then((data)=>{
 				this.api.setProgramacion(data[0]);
 				this.navCtrl.setRoot(PedidoGuiadoPage);

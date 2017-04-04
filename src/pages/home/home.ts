@@ -35,13 +35,13 @@ export class HomePage {
 		this.api.doLogin().then(
 			(response: any) => {
 				console.log("last pedido:", response.last_pedido);
-				if (response.last_pedido && moment(response.last_pedido.created_at).isSame(moment(), 'day')&&
+				if (response.last_pedido && moment(response.last_pedido.created_at).isSame(moment(), 'day') &&
 					(this.getTipo(response.last_pedido.created_at) == this.getHorario())
 				){
 					this.ya_pidio = true;
 					this.navCtrl.setRoot(VerPedidoPage, { pedido: response.last_pedido });
 				}
-
+				this.api.tipo = this.getHorario();
 				this.api.saveUser(response);
 				this.api.saveData();
 				this.api.user = response;

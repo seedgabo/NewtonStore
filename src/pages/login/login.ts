@@ -27,14 +27,16 @@ export class LoginPage {
                 return
             }
 			console.log("last pedido:", response.last_pedido);
-			if (response.last_pedido && moment(response.last_pedido.created_at).isSame(moment(),'day')){
-				this.navCtrl.setRoot(VerPedidoPage,{pedido:response.last_pedido});
-			}
+
 
             this.api.saveUser(response);
             this.api.saveData()
             this.api.user = response;
             // this.navCtrl.setRoot(Home);
+			if (response.last_pedido && moment(response.last_pedido.created_at).isSame(moment(),'day')){
+				this.navCtrl.setRoot(VerPedidoPage,{pedido:response.last_pedido});
+				return
+			}
 			this.api
 			.get(`programacion-pedidos?where[fecha]=${moment().add(1,'day').format('Y-M-D')}&where[cliente_id]=${this.api.user.cliente_id}`)
 			.then((data)=>{

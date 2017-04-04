@@ -39,7 +39,7 @@ export class MyApp {
             this.splashscreen.hide();
 			if(this.platform.is('android') || this.platform.is('ios')){
 				const downloadProgress = (progress) => { console.log(`Downloaded ${progress.receivedBytes} of ${progress.totalBytes}`); }
-				this.codepush.sync({ updateDialog: true, installMode: InstallMode.ON_NEXT_RESUME, }, downloadProgress)
+				this.codepush.sync({ updateDialog: false, installMode: InstallMode.ON_NEXT_RESUME, }, downloadProgress)
 				.subscribe(
 					(syncStatus) => {console.log(syncStatus)},
 					(err)=>{console.warn(err)}

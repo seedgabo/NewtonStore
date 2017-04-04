@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.seedg.dufloped" version="0.9.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.seedg.dufloped" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Newton Duflo Pedidos</name>
   <description>AAplicacion de pedidos Newton Duflo</description>
   <author email="hi@ionicframework" href="http://newton.eycproveedores.com/">Newton Developers</author>
@@ -62,5 +62,11 @@
   <plugin name="cordova-plugin-nativegeocoder" spec="~1.0.1"/>
   <plugin name="cordova-plugin-statusbar" spec="~2.2.1"/>
   <plugin name="cordova-plugin-code-push" spec="~1.9.2-beta"/>
+  <platform name="android">
+    <preference name="CodePushDeploymentKey" value="8YgKaoJLfw16AJiVtsV_VdnaMkGBNJcVZfbEf" />
+  </platform>
+  <platform name="ios">
+	<preference name="CodePushDeploymentKey" value="_xiZcNTbmdEzwa7EcoOtHRJNPye-NJcVZfbEf" />
+  </platform>
   <icon src="resources\android\icon\drawable-xhdpi-icon.png"/>
 </widget>

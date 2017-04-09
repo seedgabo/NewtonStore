@@ -56,7 +56,7 @@ export class HomePage {
 		this.api.doLogin().then(
 			(response: any) => {
 				this.api.user = response;
-				if(moment(response.last_login.date).hour() >= 24 ){
+				if(moment(response.last_login.date).hour() >= 17 ){
 					this.in_horario = false;
 				}
 				this.api.saveUser(response);

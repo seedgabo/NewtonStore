@@ -22,15 +22,6 @@ export class MyApp {
     constructor(public platform: Platform,public api:Api,
 	public codepush:CodePush, public statusbar:StatusBar, public splashscreen:SplashScreen) {
         this.initializeApp();
-
-        // used for an example of ngFor and navigation
-        this.pages = [
-                // {title: 'Mi Perfil', component: ProfilePage, icon: 'person'}
-            // { title: 'Home', component: Home, icon:'home' },
-            // { title: 'Carrito', component: Page2, icon:'cart' },
-            // { title: 'Pedidos', component: PedidosPage, icon: 'albums'}
-        ];
-
     }
 
     initializeApp(){
@@ -78,7 +69,10 @@ export class MyApp {
     logout(){
 			this.api.productos= [];
 			this.api.user={token: null};
+			this.api.username =  "";
+			this.api.password =  "";
 			this.api.carrito = [];
+			this.api.storage.clear();
 			this.api.tipo = "";
 			this.api.categorias = [44,27,46,47,48,49,26,45,50,51,52,53];
 			this.api.index = 0;

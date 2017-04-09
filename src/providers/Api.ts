@@ -204,6 +204,7 @@ export class Api {
 
     private setHeaders(){
         let headers = new Headers();
+		// console.log(this.username, this.password);
         headers.append("Authorization","Basic " + btoa(this.username + ":" + this.password));
         return headers;
     }

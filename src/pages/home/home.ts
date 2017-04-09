@@ -187,7 +187,7 @@ export class HomePage {
 
 	verifyNotifications(){
 		this.noti.clearAll();
-		if(this.status.almuerzo == false && this.status.comida == false && this.status.cena == false){
+		if(this.status.almuerzo == false && this.status.comida == false && this.status.cena == false && moment().hour() < 17){
 			this.noti.schedule({
 				title: "Haz tu pedido ya!",
 				text: 'ya es el momento de realizar el pedido, si aun no lo has hecho',

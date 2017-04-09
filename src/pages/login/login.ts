@@ -32,6 +32,7 @@ export class LoginPage {
             this.navCtrl.setRoot(HomePage);
 
     	}).catch(()=>{
+			loading.dismiss();
 			this.alert.create({title:"Error",message:"Error al iniciar sesión",buttons: ["Ok"]}).present();
 		});
 	}

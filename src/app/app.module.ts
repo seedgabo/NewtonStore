@@ -23,6 +23,7 @@ moment.locale("es");
 import {CodePush} from '@ionic-native/code-push';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import {LocalNotifications} from '@ionic-native/local-notifications';
 @NgModule({
   declarations: [
     MyApp,
@@ -61,7 +62,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 	TutorialPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Api,Storage,
-  	CodePush, SplashScreen, StatusBar,
+  	CodePush, SplashScreen, StatusBar,LocalNotifications
   ]
 })
 export class AppModule {}

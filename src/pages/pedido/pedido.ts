@@ -91,6 +91,21 @@ export class PedidoPage {
 		this.navCtrl.setRoot(VerPedidoPage,{pedido:this.pedido});
 	}
 
+	entidadesPadres(){
+		return this.entidades.filter((entidad)=>{
+			return entidad.parent_id == 0 || entidad.parent_id == null;
+		});
+	}
+
+	entidadesHijo(entidad_id){
+		if(entidad_id == null){
+			return [];
+		}
+		return this.entidades.filter((entidad)=>{
+			return entidad.parent_id == entidad_id;
+		});
+	}
+
 	getDireccion(entidad_id){
 		var entidad = this.entidades.find((ent)=>{
 				return entidad_id  == ent.id;

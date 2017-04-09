@@ -6,11 +6,13 @@ import { Component } from '@angular/core';
 import { AlertController, NavController, NavParams } from 'ionic-angular';
 import * as moment from 'moment';
 import { TutorialPage } from "../tutorial/tutorial";
+import { LocalNotifications } from '@ionic-native/local-notifications';
 @Component({
 	selector: 'page-home',
 	templateUrl: 'home.html'
 })
 export class HomePage {
+	in_horario: boolean = true;
 	loading: boolean = false;
 	progamacion = {
 		almuerzo: undefined,
@@ -22,7 +24,7 @@ export class HomePage {
 		comida: undefined,
 		cena: undefined,
 	}
-	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController) { }
+	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public noti:LocalNotifications) { }
 
 	ionViewDidLoad() {
 		this.api.storage.ready()
@@ -54,6 +56,9 @@ export class HomePage {
 		this.api.doLogin().then(
 			(response: any) => {
 				this.api.user = response;
+				if(moment(response.last_login.date).hour() >= 17 ){
+					this.in_horario = false;
+				}
 				this.api.saveUser(response);
 				this.api.saveData();
 				this.getPedidos();
@@ -95,7 +100,7 @@ export class HomePage {
 	ordenar(tipo){
 		console.log(tipo);
 		console.log(this.status[tipo]);
-		if(this.status[tipo] == undefined || this.status[tipo]==true ){
+		if(this.status[tipo] == undefined || this.status[tipo]==true || !this.in_horario ){
 			return;
 		}
 		this.api.setProgramacion(this.progamacion[tipo]);
@@ -123,7 +128,8 @@ export class HomePage {
 						if(pedido.tipo == "cena"){
 							this.status.cena = true;
 						}
-					})
+					});
+					this.verifyNotifications();
 			}
 		).catch(
 			(err)=>{
@@ -179,4 +185,15 @@ export class HomePage {
 		});
 	}
 
+	verifyNotifications(){
+		this.noti.clearAll();
+		if(this.status.almuerzo == false && this.status.comida == false && this.status.cena == false){
+			this.noti.schedule({
+				title: "Haz tu pedido ya!",
+				text: 'ya es el momento de realizar el pedido, si aun no lo has hecho',
+				at: moment().hour(17).minute(0).toDate(),
+				led: 'FF0000',
+			});
+		}
+	}
 }

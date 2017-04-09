@@ -18,12 +18,17 @@
 		<div class="card-title">Almuerzo</div>
 		<div class="card-subtitle">
 			<ion-spinner color="light" *ngIf="status.almuerzo === undefined"></ion-spinner>
-			<button ion-button="" color="secondary" outline *ngIf="status.almuerzo === false">
+			<button ion-button="" color="secondary" outline *ngIf="status.almuerzo === false && in_horario">
 				Ordene Ahora
 			</button>
 			<span *ngIf="status.almuerzo === true">
 				Ya pedido!
 			</span>
+			<div class="card-subtitle" *ngIf="status.almuerzo === false && !in_horario">
+			 	<button ion-button  color="danger" disabled="true">
+				 	Fuera de horario
+				 </button>
+			</div>
 		</div>
 		<div class="card-footer" text-right *ngIf="status.almuerzo === true">
 			<button ion-button color="danger" clear (click)="deletePedido($event,'almuerzo')">
@@ -31,18 +36,24 @@
 			</button>
 		</div>
 	</ion-card>
+
 	<ion-card (click)="ordenar('comida')">
 		<img src="./assets/img/comida.jpg" />
 
 		<div class="card-title">Comida</div>
 		<div class="card-subtitle">
 			<ion-spinner color="light" *ngIf="status.comida === undefined"></ion-spinner>
-			<button ion-button="" color="secondary" outline *ngIf="status.comida === false">
+			<button ion-button="" color="secondary" outline *ngIf="status.comida === false && in_horario">
 				Ordene Ahora
 			</button>
-			<span *ngIf="status.comida === true">
+			<span *ngIf="status.comida === true &&   in_horario">
 				Ya pedido!
 			</span>
+			<div class="card-subtitle" *ngIf="status.comida === false && !in_horario">
+			 	<button ion-button  color="danger" disabled="true">
+				 	Fuera de horario
+				 </button>
+			</div>
 		</div>
 		<div class="card-footer" text-right *ngIf="status.comida === true">
 			<button ion-button color="danger" clear (click)="deletePedido($event,'comida')">
@@ -56,12 +67,17 @@
 		<div class="card-title">Cena</div>
 		<div class="card-subtitle">
 			<ion-spinner color="light" *ngIf="status.cena === undefined"></ion-spinner>
-			<button ion-button="" color="secondary" outline *ngIf="status.cena === false">
+			<button ion-button="" color="secondary" outline *ngIf="status.cena === false && in_horario">
 				Ordene Ahora
 			</button>
-			<span *ngIf="status.cena === true">
+			<span *ngIf="status.cena === true &&   in_horario">
 				Ya pedido!
 			</span>
+			<div class="card-subtitle" *ngIf="status.cena === false && !in_horario">
+			 	<button ion-button  color="danger" disabled="true">
+				 	Fuera de horario
+				 </button>
+			</div>
 		</div>
 		<div class="card-footer" text-right *ngIf="status.cena === true">
 			<button ion-button color="danger" clear (click)="deletePedido($event,'cena')">

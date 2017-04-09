@@ -57,9 +57,9 @@ export class Api {
 	setProgramacion(programa){
 		if(programa != undefined){
 			if(programa.categorias != '')
-				this.categorias = JSON.parse(programa.categorias);
+				this.categorias = programa.categorias;
 			if(programa.productos != '')
-				this.productos = JSON.parse(programa.productos);
+				this.productos = programa.productos;
 		}
 	}
 
@@ -86,6 +86,18 @@ export class Api {
             });
         });
     }
+
+	delete(uri){
+		return new Promise((resolve,reject) => {
+            this.http.delete(this.url + "api/" + uri ,{headers : this.setHeaders()})
+            .map(res => res.json() )
+            .subscribe(data => {
+                resolve(data);
+            }, error => {
+                return reject(this.handleData(error));
+            });
+        });	
+	}
 
     addToCart(producto){
         var index = this.carrito.findIndex((item)=>{

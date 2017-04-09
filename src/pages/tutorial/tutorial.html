@@ -1,0 +1,59 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>
+			<button ion-button color="light" outline style="text-transform:uppercase" (click)="close()" icon-left>
+			  <ion-icon name="close"></ion-icon>  
+			  Salir de Tutorial
+			</button>
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-slides pager>
+
+		<ion-slide>
+			<div text-center>
+				<img style="width:100%; max-width:150px;" src="./assets/img/1.jpeg">
+			</div>
+			<p><strong>¡Bienvenidos!</strong> <br> Te mostraremos como usar tu app</p>
+			<p> <strong color="primary" ion-text>Selecciona tu producto</strong> y dale Click a <strong ion-text color="secondary">Siguiente</strong></p>
+		</ion-slide>
+
+		<ion-slide>
+			<div text-center>
+				<img style="width:100%; max-width:150px;" src="./assets/img/2.jpeg">
+				<p><strong>¡Sigue Seleccionando!</strong> <br> <br> Luego de haber seleccionado los productos de tu preferencia danos un
+					Click en</p>
+				<p> <strong ion-text color="secondary">Siguiente</strong></p>
+			</div>
+
+		</ion-slide>
+
+		<ion-slide>
+			<div text-center>
+				<img style="width:100%; max-width:150px;" src="./assets/img/3.jpeg">
+				<p><strong>¡Visualiza lo que has seleccionado!</strong> <br> <br>Verifica que tus elecciones sean las correctas y da Click
+					en</p>
+				<p> <strong ion-text color="secondary">Confirmar Pedido</strong></p>
+			</div>
+		</ion-slide>
+
+		<ion-slide>
+			<div text-center>
+				<img style="width:100%; max-width:150px;" src="./assets/img/4.jpeg">
+				<p><strong>¡Ya tu pedido fue enviado!</strong> <br> <br> Ahora puedes verlo dando Click en</p>
+				<p> <strong color="primary" ion-text>Ver Pedido</strong></p>
+			</div>
+		</ion-slide>
+
+		<ion-slide>
+			<div text-center>
+				<img style="width:100%; max-width:150px;" src="./assets/img/5.jpeg">
+				<p><strong>¡Así de fácil!</strong> <br> <br> ¡Ahora te toca a ti!</p>
+				<button ion-button color="secondary" (click)="close()">SALIR DEL TUTORIAL</button>
+			</div>
+		</ion-slide>
+
+	</ion-slides>
+</ion-content>

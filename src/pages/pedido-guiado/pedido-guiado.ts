@@ -13,49 +13,19 @@ export class PedidoGuiadoPage {
     productos:any = [];
     producto_selected = undefined;
     servicio;
-	loader = true;
+	loader = false;
     constructor(public navCtrl: NavController, public params: NavParams, public api:Api, public loading:LoadingController, public alert:AlertController) {
-        // var now = moment();
-        var almuerzo_inicio = moment().hour(12).minutes(0).seconds(0);
-        var almuerzo_final = moment().hour(17).minutes(0).seconds(0);
-
-        var comida_inicio = moment().hour(5).minutes(0).seconds(0);
-        var comida_final = moment().hour(12).minutes(0).seconds(0);
-
-        if(moment().isBetween(almuerzo_inicio, almuerzo_final))
-            this.servicio = "Almuerzo";
-        else if(moment().isBetween(comida_inicio, comida_final))
-            this.servicio = "Comida";
-        else
-            this.servicio = "Cena";
+		this.servicio = this.api.tipo;
     }
 
     ionViewDidLoad() {
-        this.categoria = this.params.get('categoria') != undefined ?this.params.get('categoria') : {nombre: "Cargando...", id: this.api.categorias[this.api.index]};
-        console.log(this.categoria);
-		var uri = `productos?where[active]=1&where[categoria_id]=${this.categoria.id}`;
-		if(this.api.productos != []){
-			uri += `&whereIn[id]=${this.api.productos.join()}`;
-		}
-        this.api.get(uri)
-        .then((data)=>{
-			this.loader = false;
-            this.productos = data;
-        })
-        .catch((err)=>{
-			this.loader = false;
-            console.error(err);
-            this.alert.create({title:"Error",message:"Ocurrio un error al cargar los pagina",buttons: ["OK"]}).present();
-        });
-        this.api.get(`categorias-productos?where[id]=${this.categoria.id}&with[]=banner&with[]=image`)
-        .then((data)=>{
-            this.categoria = data[0];
-            // loading.dismiss();
-        })
-        .catch((err)=>{
-            console.error(err);
-            this.alert.create({title:"Error",message:"Ocurrio un error al cargar los pagina",buttons: ["OK"]}).present();
-        });
+        this.categoria = this.params.get('categoria');
+		this.productos = this.api.productos.filter((prod)=>{
+			if(prod != null)
+				return prod.categoria_id == this.categoria.id;
+			else 
+				return false;
+		});
     }
 
     selectproducto(producto){
@@ -77,13 +47,15 @@ export class PedidoGuiadoPage {
         }else{
             this.api.addToCart({name:"",image_url:"",cantidad_pedidos: 0,id:0, categoria_id:0});
         }
-        this.navCtrl.push(PedidoGuiadoPage, {categoria: {id: this.api.categorias[++this.api.index]}}, {animation: "ios-transition"});
+        this.navCtrl.push(PedidoGuiadoPage, {categoria: this.api.categorias[++this.api.index]}, {animation: "ios-transition", duration: 100});
     }
 
     atras(){
         if(this.navCtrl.canGoBack()){
-            this.api.index--;
-            this.api.removeFromCart(this.api.carrito[this.api.carrito.length -1]);
+            if(this.api.index > 0)
+				this.api.index--;
+			if(this.api.carrito.length > 0)
+            	this.api.removeFromCart(this.api.carrito[this.api.carrito.length -1]);
             this.navCtrl.pop();
         }
     }

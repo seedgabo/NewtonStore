@@ -15,9 +15,9 @@
             </ion-thumbnail>
             <p text-center ion-text color="primary">{{per.name}}</p>
             <div text-center>
-                <button ion-button round clear  small icon-only (click)="increment(per)"> <ion-icon name="add-circle"></ion-icon></button>
-                <input readonly item-right type="number" class="orden" [(ngModel)]="per.cantidad_pedidos">
                 <button ion-button small clear round icon-only (click)="decrement(per)"> <ion-icon name="remove-circle"></ion-icon></button>
+                <input readonly item-right type="number" class="orden" [(ngModel)]="per.cantidad_pedidos">
+                <button ion-button round clear  small icon-only (click)="increment(per)"> <ion-icon name="add-circle"></ion-icon></button>
             </div>
         </ion-item>
     </ion-list>
@@ -31,7 +31,7 @@
                 <button ion-button clear color="dark" full (click)="atras()">Atrás</button>
             </ion-col>
             <ion-col >
-                    <button ion-button full color="secondary" [disabled]="!pedidoValido()" (click)="verPedido()">Confirmar Pedido</button>
+                    <button ion-button full color="secondary" [disabled]="!pedidoValido()" (click)="verPedido()">Revisar Pedido</button>
             </ion-col>
         </ion-row>
     </ion-grid>

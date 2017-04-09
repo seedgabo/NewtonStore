@@ -21,6 +21,9 @@
         </ion-item>
 
         <ion-item [ngClass]="{'selected': producto_selected == udnefined}"  (click)="selectproducto('none')">
+			<ion-avatar item-left>
+                <img src="./assets/img/none.png">
+            </ion-avatar>
             <h2>Ninguno</h2>
         </ion-item>
     </ion-list>

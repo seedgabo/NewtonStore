@@ -22,8 +22,13 @@
           <ion-icon name="cart" item-left color="primary"></ion-icon>
           Mis Pedidos
       </button>-->
+      <button menuClose ion-item  (click)="verTutorial()">
+          <ion-icon name="help" item-left color="primary"></ion-icon>
+          Tutorial
+      </button>
+	  <hr>
       <button menuClose ion-item  (click)="logout()" *ngIf="api.user.token != null">
-          <ion-icon name="log-out" item-left color="primary"></ion-icon>
+          <ion-icon name="log-out" item-left color="danger"></ion-icon>
           Cerrar Sesión
       </button>
     </ion-list>

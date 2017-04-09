@@ -14,13 +14,15 @@ import { LoginPage } from '../pages/login/login';
 import { Api } from '../providers/Api';
 import { IonicStorageModule } from '@ionic/storage';
 import {MomentModule} from 'angular2-moment';
+import { HomePage } from "../pages/home/home";
+import {TutorialPage} from "../pages/tutorial/tutorial";
 import * as moment from 'moment';
 import 'moment/min/locales';
+moment.locale("es");
+
 import {CodePush} from '@ionic-native/code-push';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { HomePage } from "../pages/home/home";
-moment.locale("es");
 @NgModule({
   declarations: [
     MyApp,
@@ -35,6 +37,7 @@ moment.locale("es");
 	VerPedidoPage,
 	HomePage,
     LoginPage,
+	TutorialPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -55,6 +58,7 @@ moment.locale("es");
 	VerPedidoPage,
 	HomePage,
     LoginPage,
+	TutorialPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Api,Storage,
   	CodePush, SplashScreen, StatusBar,

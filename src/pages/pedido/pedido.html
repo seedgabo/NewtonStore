@@ -1,53 +1,60 @@
 <ion-header>
 
-    <ion-navbar hideBackButton  color="primary">
-        <ion-title>Mi Pedido</ion-title>
-    </ion-navbar>
+	<ion-navbar hideBackButton color="primary">
+		<ion-title>Mi Pedido</ion-title>
+	</ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-    <ion-list *ngIf="productos.length >0">
-        <ion-item *ngFor="let prod of productos">
-            <ion-avatar item-left>
-                <img [src]="prod.image_url" alt="">
-            </ion-avatar>
-            <h3>{{prod.name}}
-                <ion-badge color="favorite" *ngIf="prod.categoria_id == 39">Periferico</ion-badge>
-            </h3>
-            <ion-badge item-right>{{prod.cantidad_pedidos}}</ion-badge>
-        </ion-item>
-    </ion-list>
-    <ion-card *ngIf="productos.length == 0 && procesado == false">
-        <h1>
-            No hay nada en el carrito
-        </h1>
+	<div *ngIf="productos.length > 0 && procesado == false">
+		<ion-item>
+			<ion-label>Dirección de envio</ion-label>
+			<ion-select [(ngModel)]="entidad_id">
+				<ion-option [value]="entidad.id" *ngFor="let entidad of entidades">{{entidad.name}}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-list>
+			<ion-item *ngFor="let prod of productos">
+				<ion-avatar item-left>
+					<img [src]="prod.image_url" alt="">
+				</ion-avatar>
+				<h3>{{prod.name}}
+					<ion-badge color="favorite" *ngIf="prod.categoria_id == 39">Periferico</ion-badge>
+				</h3>
+				<ion-badge item-right>{{prod.cantidad_pedidos}}</ion-badge>
+			</ion-item>
+		</ion-list>
+		<ion-card *ngIf="productos.length == 0 && procesado == false">
+			<h1>
+				No hay nada en el carrito
+			</h1>
+		</ion-card>
+	</div>
 
-    </ion-card>
+	<div style="text-align:center;vertical-align:middle;height:90%;" *ngIf="productos.length == 0 && procesado == true">
+		<h2>Su Pedido fue Procesado Correctamente</h2>
 
-    <div style="text-align:center;vertical-align:middle;height:90%;" *ngIf="productos.length == 0 && procesado == true">
-        <h2>Su Pedido fue Procesado Correctamente</h2>
+		<ion-icon style="display:block; font-size:68px;" large color="secondary" name="checkmark-circle"></ion-icon>
 
-        <ion-icon style="display:block; font-size:68px;" large color="secondary" name="checkmark-circle"></ion-icon>
-
-        <button ion-button outline color="primary" large (click)="verPedido()"> Ver Pedido</button>
+		<button ion-button outline color="primary" large (click)="verPedido()"> Ver Pedido</button>
 
 
-    </div>
+	</div>
 </ion-content>
 
 
 <ion-footer>
-    <!-- <ion-toolbar> -->
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <button ion-button outline color="dark" full (click)="atras()">Atras</button>
-            </ion-col>
-            <ion-col>
-                <button ion-button full  color="secondary" (click)="processCarrito()" [disabled]="productos.length == 0">Confirmar Pedido</button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-    <!-- </ion-toolbar> -->
+	<!-- <ion-toolbar> -->
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<button ion-button outline color="dark" full (click)="atras()">Atras</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button full color="secondary" (click)="processCarrito()" [disabled]="productos.length == 0">Confirmar Pedido</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<!-- </ion-toolbar> -->
 </ion-footer>

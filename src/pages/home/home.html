@@ -1,13 +1,74 @@
 <ion-header>
-
-  <!--<ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>-->
-
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Home</ion-title>
+	</ion-navbar>
 </ion-header>
 
 
-<ion-content padding class="home" >
-	<img src="http://newton.eycproveedores.com/newton/public/img/logo-newton.png" style="height:120px; margin-top:20%" alt="">
-	<h1 text-center color="primary" [ngClass]="{'dissapear' :  loading}"> Descargando Menú... </h1>
+<ion-content class="card-background-page">
+
+	<!--<img src="http://newton.eycproveedores.com/newton/public/img/logo-newton.png" style="height:120px; margin-top:20%" alt="">-->
+	<!--<h1 text-center color="primary" [ngClass]="{'dissapear' :  loading}"> Descargando Menú... </h1>-->
+
+	<ion-card (click)="ordenar('almuerzo')">
+		<img src="./assets/img/almuerzo.jpg" />
+		<div class="card-title">Almuerzo</div>
+		<div class="card-subtitle">
+			<ion-spinner color="light" *ngIf="status.almuerzo === undefined"></ion-spinner>
+			<button ion-button="" color="secondary" outline *ngIf="status.almuerzo === false">
+				Ordene Ahora
+			</button>
+			<span *ngIf="status.almuerzo === true">
+				Ya pedido!
+			</span>
+		</div>
+		<div class="card-footer" text-right *ngIf="status.almuerzo === true">
+			<button ion-button color="danger" clear (click)="deletePedido($event,'almuerzo')">
+				Cancelar Pedido
+			</button>
+		</div>
+	</ion-card>
+	<ion-card (click)="ordenar('comida')">
+		<img src="./assets/img/comida.jpg" />
+
+		<div class="card-title">Comida</div>
+		<div class="card-subtitle">
+			<ion-spinner color="light" *ngIf="status.comida === undefined"></ion-spinner>
+			<button ion-button="" color="secondary" outline *ngIf="status.comida === false">
+				Ordene Ahora
+			</button>
+			<span *ngIf="status.comida === true">
+				Ya pedido!
+			</span>
+		</div>
+		<div class="card-footer" text-right *ngIf="status.comida === true">
+			<button ion-button color="danger" clear (click)="deletePedido($event,'comida')">
+				Cancelar Pedido
+			</button>
+		</div>
+	</ion-card>
+
+	<ion-card (click)="ordenar('cena')">
+		<img src="./assets/img/cena.jpg" />
+		<div class="card-title">Cena</div>
+		<div class="card-subtitle">
+			<ion-spinner color="light" *ngIf="status.cena === undefined"></ion-spinner>
+			<button ion-button="" color="secondary" outline *ngIf="status.cena === false">
+				Ordene Ahora
+			</button>
+			<span *ngIf="status.cena === true">
+				Ya pedido!
+			</span>
+		</div>
+		<div class="card-footer" text-right *ngIf="status.cena === true">
+			<button ion-button color="danger" clear (click)="deletePedido($event,'cena')">
+				Cancelar Pedido
+			</button>
+		</div>
+	</ion-card>
+
+
 </ion-content>

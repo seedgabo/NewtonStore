@@ -29,22 +29,18 @@ export class PedidoRestringidoPage {
             console.error(err);
         });
 
-        this.api.get(`productos?where[categoria_id]=${this.categoria.id}&with[]=image`)
-        .then((data:any)=>{
-            this.perifericos = data;
-            this.perifericos.map((per)=>{
-                per.valor = 1;
-				if(per.id == "17776"){
-					per.valor = 4;
+		this.perifericos = this.api.productos.filter((prod)=>{
+			if(prod != null){
+				prod.cantidad_pedidos = 0;
+				prod.valor = 1;
+				if(prod.name.toLowerCase().indexOf("leche") > -1){
+					prod.valor =4;
 				}
-                per.cantidad_pedidos = 0;
-                return per;
-            })
-
-        })
-        .catch((err)=>{
-            console.error(err);
-        });
+				return prod.categoria_id == this.categoria.id;
+			}
+			else 
+				return false;
+		});
     }
 
     increment(per){

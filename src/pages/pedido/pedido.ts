@@ -10,7 +10,9 @@ import * as moment from 'moment';
 export class PedidoPage {
     productos = [];
     procesado=false;
+	entidades = [];
 	pedido = null;
+	entidad_id;
     constructor(public navCtrl: NavController, public navParams: NavParams, public api:Api, public loading:LoadingController,public toast:ToastController,public alert:AlertController) {}
 
     ionViewDidLoad(){
@@ -18,6 +20,14 @@ export class PedidoPage {
             if(prod.id != 0)
                 this.productos.push(prod);
         })
+		this.api.get("entidades").then((data:Array<any>)=>{
+			this.entidades = data;
+		}).catch(()=>{
+			this.alert.create({message:"Error al cargar las direcciones", buttons:["Ok"]}).present();
+		})
+
+		this.entidad_id = this.api.user.entidad_id;
+		console.log(this.entidad_id);
     }
 
     clearCarrito(){
@@ -42,6 +52,7 @@ export class PedidoPage {
         data.cliente_id = this.api.user.cliente_id;
         data.fecha_envio = (new Date()).toISOString().substring(0,10);
         data.fecha_entrega = (new Date()).toISOString().substring(0,10);
+		data.direccion_envio = this.getDireccion(this.entidad_id);
         data.estado = "Pedido";
 		data.tipo = this.api.tipo;
 		data.facturar = false;
@@ -78,6 +89,13 @@ export class PedidoPage {
 
 	verPedido(){
 		this.navCtrl.setRoot(VerPedidoPage,{pedido:this.pedido});
+	}
+
+	getDireccion(entidad_id){
+		var entidad = this.entidades.find((ent)=>{
+				return entidad_id  == ent.id;
+			});
+		return entidad.full_name;
 	}
 
 }

@@ -10,7 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 import { Api } from '../providers/Api';
 import { HomePage } from "../pages/home/home";
-
+import {TutorialPage} from "../pages/tutorial/tutorial";
 @Component({
     templateUrl: 'app.html'
 })
@@ -62,6 +62,10 @@ export class MyApp {
     openPage(page) {
             this.nav.setRoot(page.component);
     }
+
+	verTutorial(){
+		this.nav.push(TutorialPage);
+	}
 
     verperfil(){
         this.nav.push(ProfilePage);

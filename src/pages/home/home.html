@@ -18,7 +18,7 @@
 		<div class="card-title">Almuerzo</div>
 		<div class="card-subtitle">
 			<ion-spinner color="light" *ngIf="status.almuerzo === undefined"></ion-spinner>
-			<button ion-button="" color="secondary" outline *ngIf="canOrder()">
+			<button ion-button="" color="secondary" outline *ngIf="canOrder() && in_horario">
 				Ordene Ahora
 			</button>
 			<span *ngIf="status.almuerzo === true">
@@ -43,7 +43,7 @@
 		<div class="card-title">Comida</div>
 		<div class="card-subtitle">
 			<ion-spinner color="light" *ngIf="status.comida === undefined"></ion-spinner>
-			<button ion-button="" color="secondary" outline *ngIf="canOrder()">
+			<button ion-button="" color="secondary" outline *ngIf="canOrder() && in_horario">
 				Ordene Ahora
 			</button>
 			<span *ngIf="status.comida === true &&   in_horario">
@@ -67,7 +67,7 @@
 		<div class="card-title">Cena</div>
 		<div class="card-subtitle">
 			<ion-spinner color="light" *ngIf="status.cena === undefined"></ion-spinner>
-			<button ion-button="" color="secondary" outline *ngIf="canOrder()">
+			<button ion-button="" color="secondary" outline *ngIf="canOrder() && in_horario">
 				Ordene Ahora
 			</button>
 			<span *ngIf="status.cena === true &&   in_horario">

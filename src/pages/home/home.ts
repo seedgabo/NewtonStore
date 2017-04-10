@@ -100,7 +100,7 @@ export class HomePage {
 	ordenar(tipo){
 		console.log(tipo);
 		console.log(this.status[tipo]);
-		if( !this.canOrder() &&  !this.in_horario ){
+		if( !this.canOrder() ||  !this.in_horario ){
 			return;
 		}
 		this.api.setProgramacion(this.progamacion[tipo]);

@@ -19,7 +19,7 @@
                 <img [src]="producto.image_url" [alt]="producto.name">
             </ion-avatar>
             <h2>{{producto.name}}</h2>
-			<p class="e2e-inner-html-bound" [innerHTML]="producto.description"></p>
+			<p class="e2e-inner-html-bound" [innerHTML]="producto.description" style="white-space:normal"></p>
         </ion-item>
 
         <ion-item [ngClass]="{'selected': producto_selected == udnefined}"  (click)="selectproducto('none')">

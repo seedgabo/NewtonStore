@@ -75,7 +75,7 @@ export class HomePage {
 
 	getProgramaciones() {
 		this.api
-			.get(`programacion-pedidos?where[fecha]=${moment().add(1,'day').format('Y-MM-DD')}&where[cliente_id]=${this.api.user.cliente_id}&afterEach[setProductos]=&afterEach[setCategorias]=`)
+			.get(`programacion-pedidos?whereDate[fecha]=${'tomorrow'}&where[cliente_id]=${this.api.user.cliente_id}&afterEach[setProductos]=&afterEach[setCategorias]=`)
 			.then((data:any) => {
 				console.log(data);
 				data.forEach(element => {
@@ -100,7 +100,7 @@ export class HomePage {
 	ordenar(tipo){
 		console.log(tipo);
 		console.log(this.status[tipo]);
-		if(this.status[tipo] == undefined || this.status[tipo]==true || !this.in_horario ){
+		if( !this.canOrder() &&  !this.in_horario ){
 			return;
 		}
 		this.api.setProgramacion(this.progamacion[tipo]);
@@ -142,6 +142,10 @@ export class HomePage {
 			}
 		)
 
+	}
+
+	canOrder(){
+		return !(this.status.comida  || this.status.cena  || this.status.almuerzo );
 	}
 
 	deletePedido(ev,tipo){

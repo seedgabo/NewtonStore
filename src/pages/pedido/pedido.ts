@@ -47,7 +47,7 @@ export class PedidoPage {
 
     processCarrito(){
 		if(this.entidad_id == undefined){
-			this.alert.create({message: "elija primero una ubicación", buttons: ["OK"]}).present();
+			this.alert.create({message: "Elija una dirección de envió", buttons: ["OK"]}).present();
 			return;
 		}
         var data:any = {items:[]};
@@ -57,6 +57,7 @@ export class PedidoPage {
         data.fecha_envio = moment().add(1, 'days').toDate().toISOString().substring(0,10);
         data.fecha_entrega = moment().add(1, 'days').toDate().toISOString().substring(0,10);
         data.fecha_pedido = moment().add(1, 'days').toDate().toISOString().substring(0,10);
+		data.entidad_id = this.entidad_id;
 		data.direccion_envio = this.getDireccion(this.entidad_id);
         data.estado = "Pedido";
 		data.tipo = this.api.tipo;

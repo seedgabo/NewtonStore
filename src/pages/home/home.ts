@@ -145,7 +145,7 @@ export class HomePage {
 	}
 
 	canOrder(){
-		return !(this.status.comida  || this.status.cena  || this.status.almuerzo );
+		return (this.status.comida === false   &&  this.status.cena === false   && this.status.almuerzo === false );
 	}
 
 	deletePedido(ev,tipo){
@@ -191,7 +191,7 @@ export class HomePage {
 
 	verifyNotifications(){
 		this.noti.clearAll();
-		if(this.status.almuerzo == false && this.status.comida == false && this.status.cena == false && moment().hour() < 17){
+		if(( this.status.almuerzo === false &&  this.status.comida === false && this.status.cena === false) && moment().hour() < 17){
 			this.noti.schedule({
 				title: "Haz tu pedido ya!",
 				text: 'ya es el momento de realizar el pedido, si aun no lo has hecho',

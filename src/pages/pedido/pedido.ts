@@ -39,19 +39,24 @@ export class PedidoPage {
     }
 
     atras(){
-        this.api.carrito.filter((prod)=>{
+        this.api.carrito = this.api.carrito.filter((prod)=>{
             return prod.categoria_id != 39;
         });
         this.navCtrl.pop()
     }
 
     processCarrito(){
+		if(this.entidad_id == undefined){
+			this.alert.create({message: "elija primero una ubicación", buttons: ["OK"]}).present();
+			return;
+		}
         var data:any = {items:[]};
         data.user_id = this.api.user.id;
 		data.entidad_id = this.api.user.entidad_id;
         data.cliente_id = this.api.user.cliente_id;
-        data.fecha_envio = (new Date()).toISOString().substring(0,10);
-        data.fecha_entrega = (new Date()).toISOString().substring(0,10);
+        data.fecha_envio = moment().add(1, 'days').toDate().toISOString().substring(0,10);
+        data.fecha_entrega = moment().add(1, 'days').toDate().toISOString().substring(0,10);
+        data.fecha_pedido = moment().add(1, 'days').toDate().toISOString().substring(0,10);
 		data.direccion_envio = this.getDireccion(this.entidad_id);
         data.estado = "Pedido";
 		data.tipo = this.api.tipo;

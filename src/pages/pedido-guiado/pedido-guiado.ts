@@ -42,11 +42,13 @@ export class PedidoGuiadoPage {
 
     siguiente(){
         if (this.producto_selected != undefined) {
-            this.producto_selected.cantidad_pedidos = 1;
+            this.producto_selected= JSON.parse(JSON.stringify(this.producto_selected));
+			this.producto_selected.cantidad_pedidos = 1;
             this.api.addToCart(this.producto_selected);
         }else{
-            this.api.addToCart({name:"",image_url:"",cantidad_pedidos: 0,id:0, categoria_id:0});
+            this.api.addToCart({name:"",image_url:"",cantidad_pedidos: 1,id:0, categoria_id:0});
         }
+		console.log(this.api.carrito);
         this.navCtrl.push(PedidoGuiadoPage, {categoria: this.api.categorias[++this.api.index]}, {animation: "ios-transition", duration: 100});
     }
 
@@ -55,7 +57,7 @@ export class PedidoGuiadoPage {
             if(this.api.index > 0)
 				this.api.index--;
 			if(this.api.carrito.length > 0)
-            	this.api.removeFromCart(this.api.carrito[this.api.carrito.length -1]);
+            	console.log(this.api.removeFromCart(this.api.carrito[this.api.carrito.length -1]));
             this.navCtrl.pop();
         }
     }

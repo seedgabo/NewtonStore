@@ -30,13 +30,13 @@ export class PedidoRestringidoPage {
         });
 
 		this.perifericos = this.api.productos.filter((prod)=>{
-			if(prod != null){
+			if(prod != null &&  prod.categoria_id == this.categoria.id){
 				prod.cantidad_pedidos = 0;
 				prod.valor = 1;
 				if(prod.name.toLowerCase().indexOf("leche") > -1){
 					prod.valor =4;
 				}
-				return prod.categoria_id == this.categoria.id;
+				return true;
 			}
 			else 
 				return false;
@@ -72,7 +72,7 @@ export class PedidoRestringidoPage {
     atras(){
         if(this.navCtrl.canGoBack()){
             // this.api.index--;
-            this.api.removeFromCart(this.api.carrito[this.api.carrito.length -1]);
+            console.log(this.api.removeFromCart(this.api.carrito[this.api.carrito.length -1]));
             this.navCtrl.pop();
         }
     }

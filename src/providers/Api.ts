@@ -99,7 +99,7 @@ export class Api {
         });	
 	}
 
-    addToCart(producto){
+	addToCart(producto){
         var index = this.carrito.findIndex((item)=>{
             return item.id == producto.id;
         });

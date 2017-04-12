@@ -67,7 +67,7 @@ import {Push} from '@ionic-native/push';
     LoginPage,
 	TutorialPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Api,Storage,
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Api,
   	CodePush, SplashScreen, StatusBar,LocalNotifications,Push
   ]
 })

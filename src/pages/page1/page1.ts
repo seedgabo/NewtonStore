@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {Api} from '../../providers/Api';
 import { NavController, AlertController,ToastController,NavParams } from 'ionic-angular';
 import { ProductoPage } from '../producto/producto';
-import * as $ from 'jQuery';
 @Component({
     selector: 'page-page1',
     templateUrl: 'page1.html'
@@ -80,12 +79,7 @@ export class Home{
                 }
             ]
         });
-        alert.present().then(()=>{
-            $("input[type='number']").attr("min","0");
-            if(!producto.es_vendible_sin_stock){
-                $("input[type='number']").attr("max",producto.stock);
-            }
-        });
+        alert.present();
     }
 
     verProducto(producto){

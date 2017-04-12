@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams,LoadingController,AlertController } from 'ionic-angular';
 import { Api } from '../../providers/Api';
 import { PedidoRestringidoPage } from '../pedido-restringido/pedido-restringido';
-import * as moment from 'moment';
 @Component({
     selector: 'page-pedido-guiado',
     templateUrl: 'pedido-guiado.html'

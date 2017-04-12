@@ -1,4 +1,3 @@
-import { VerPedidoPage } from '../ver-pedido/ver-pedido';
 import { LoginPage } from '../login/login';
 import { PedidoGuiadoPage } from '../pedido-guiado/pedido-guiado';
 import { Api } from '../../providers/Api';

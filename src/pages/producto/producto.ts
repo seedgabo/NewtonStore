@@ -1,7 +1,6 @@
 import { Component,ViewChild, } from '@angular/core';
 import { NavController, NavParams,Slides,ToastController } from 'ionic-angular';
 import {Api} from '../../providers/Api';
-import * as $ from 'jQuery';
 @Component({
     selector: 'page-producto',
     templateUrl: 'producto.html'

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Platform} from 'ionic-angular';
-import {Push} from 'ionic-native';
+import { Push } from '@ionic-native/push';
 import {Http, Headers} from '@angular/http';
 // import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
@@ -21,7 +21,7 @@ export class Api {
 	tipo = "";
     categorias = [44,27,46,47,48,49,26,45,50,51,52,53];
     index = 0;
-    constructor(public http: Http, private platform:Platform, public storage:Storage){
+    constructor(public http: Http, private platform:Platform, public storage:Storage, public push:Push){
         this.initVar();
     }
 
@@ -143,7 +143,7 @@ export class Api {
       }
 
     pushRegister(){
-        let push:any = Push.init({
+        let push:any = this.push.init({
             android: {
                 senderID: "600000041642",
                 clearNotifications: 'false',

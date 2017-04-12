@@ -20,10 +20,14 @@ import * as moment from 'moment';
 import 'moment/min/locales';
 moment.locale("es");
 
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
+
 import {CodePush} from '@ionic-native/code-push';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import {LocalNotifications} from '@ionic-native/local-notifications';
+import {Push} from '@ionic-native/push';
 @NgModule({
   declarations: [
     MyApp,
@@ -41,6 +45,8 @@ import {LocalNotifications} from '@ionic-native/local-notifications';
 	TutorialPage,
   ],
   imports: [
+	BrowserModule,
+  	HttpModule,
     IonicModule.forRoot(MyApp),
 	IonicStorageModule.forRoot(),
     MomentModule
@@ -62,7 +68,7 @@ import {LocalNotifications} from '@ionic-native/local-notifications';
 	TutorialPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Api,Storage,
-  	CodePush, SplashScreen, StatusBar,LocalNotifications
+  	CodePush, SplashScreen, StatusBar,LocalNotifications,Push
   ]
 })
 export class AppModule {}

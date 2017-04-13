@@ -51,7 +51,7 @@ export class PedidoPage {
 			return;
 		}
 		if(this.api.user_selected){
-			var user = this.api.user.user_selected;
+			var user = this.api.user_selected;
 		}else{
 			var user = this.api.user;
 		}

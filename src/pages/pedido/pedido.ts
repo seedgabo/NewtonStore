@@ -26,7 +26,7 @@ export class PedidoPage {
 			this.alert.create({message:"Error al cargar las direcciones", buttons:["Ok"]}).present();
 		})
 
-		// this.entidad_id = this.api.user.entidad_id;
+		// this.entidad_id = user.entidad_id;
 		console.log(this.entidad_id);
     }
 
@@ -50,10 +50,15 @@ export class PedidoPage {
 			this.alert.create({message: "Elija una dirección de envió", buttons: ["OK"]}).present();
 			return;
 		}
+		if(this.api.user_selected){
+			var user = this.api.user.user_selected;
+		}else{
+			var user = this.api.user;
+		}
         var data:any = {items:[]};
-        data.user_id = this.api.user.id;
-		data.entidad_id = this.api.user.entidad_id;
-        data.cliente_id = this.api.user.cliente_id;
+        data.user_id = user.id;
+		data.entidad_id = user.entidad_id;
+        data.cliente_id = user.cliente_id;
         data.fecha_envio = moment().add(1, 'days').toDate().toISOString().substring(0,10);
         data.fecha_entrega = moment().add(1, 'days').toDate().toISOString().substring(0,10);
         data.fecha_pedido = moment().add(1, 'days').toDate().toISOString().substring(0,10);

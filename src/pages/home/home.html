@@ -12,7 +12,10 @@
 
 	<!--<img src="http://newton.eycproveedores.com/newton/public/img/logo-newton.png" style="height:120px; margin-top:20%" alt="">-->
 	<!--<h1 text-center color="primary" [ngClass]="{'dissapear' :  loading}"> Descargando Menú... </h1>-->
-
+	<button ion-button color="light" (click)="selectClientes()" block icon-left *ngIf="api.user.is_vendedor">
+		<ion-icon name="person"></ion-icon>
+		{{ api.user_selected  ? api.user_selected.full_name :'Seleccionar Cliente'}}
+	</button>
 	<ion-card (click)="ordenar('almuerzo')">
 		<img src="./assets/img/almuerzo.jpg" />
 		<div class="card-title">Almuerzo</div>

@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-title>{{ title }}</ion-title>
+	<ion-buttons end>
+		<button ion-button icon-only (click)="close()">
+			<ion-icon name="close"></ion-icon>
+		</button>
+	</ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-searchbar (ionInput)="search()"  [(ngModel)]="query"></ion-searchbar>
+	<div text-center>
+		<ion-spinner *ngIf="load" color="primary"></ion-spinner>
+	</div>
+	<ion-list>
+		<ion-item *ngFor="let item of list" ngClass="{'active': item.id == selected.id}" (click)="select(item)">
+			<ion-icon [name]="icon" item-left *ngIf="icon && !image"></ion-icon>
+			<ion-avatar item-left *ngIf="image">
+				<img [src]="item[image]">
+			</ion-avatar>
+			<h2> {{item[text]}} </h2>
+			<p *ngIf="description">{{ item[description]}}</p>
+		</ion-item>
+	</ion-list>
+</ion-content>

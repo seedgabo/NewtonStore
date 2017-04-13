@@ -15,6 +15,7 @@ export class Api {
     url:string = 'http://seguimiento.duflosa.com:8080/pedidos/public/';
     // url:string = 'http://localhost/newton/public/';
     user:any={token: null};
+	user_selected = undefined;
     pushData:any;
     carrito = [];
     vista='grid';

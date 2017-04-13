@@ -2,9 +2,10 @@ import { LoginPage } from '../login/login';
 import { PedidoGuiadoPage } from '../pedido-guiado/pedido-guiado';
 import { Api } from '../../providers/Api';
 import { Component } from '@angular/core';
-import { AlertController, NavController, NavParams } from 'ionic-angular';
+import {ModalController, AlertController,  NavController,  NavParams} from 'ionic-angular';
 import * as moment from 'moment';
 import { TutorialPage } from "../tutorial/tutorial";
+import {Selector} from '../selector/selector';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 @Component({
 	selector: 'page-home',
@@ -23,7 +24,8 @@ export class HomePage {
 		comida: undefined,
 		cena: undefined,
 	}
-	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public noti:LocalNotifications) { }
+	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public modal:ModalController ,
+	public noti:LocalNotifications) { }
 
 	ionViewDidLoad() {
 		this.api.index=0;
@@ -109,10 +111,15 @@ export class HomePage {
 	}
 
 	getPedidos(){
-		this.api.get("pedidos?whereDateBetween[created_at]=today,tomorrow&where[user_id]="+ this.api.user.id).then(
+		if(this.api.user_selected){
+			var user = this.api.user_selected;
+		}else{
+			var user = this.api.user;
+		}
+		this.api.get("pedidos?whereDateBetween[created_at]=today,tomorrow&where[user_id]="+ user.id).then(
 			(data:Array<any>)=>{
 					console.log("pedidos",data);
-					this.api.user.pedidos = data;
+					user.pedidos = data;
 					this.status ={
 						almuerzo : false,
 						comida: false,
@@ -173,7 +180,12 @@ export class HomePage {
 	_deletePedido(tipo){
 		console.log("eliminar pedido", tipo);
 		var index;
-		var pedido = this.api.user.pedidos.find((ped,i)=>{
+		if(this.api.user_selected){
+			var user = this.api.user_selected;
+		}else{
+			var user = this.api.user;
+		}
+		var pedido = user.pedidos.find((ped,i)=>{
 			if(ped.tipo == tipo){
 				index = i;
 				return true;
@@ -181,7 +193,7 @@ export class HomePage {
 		})
 		this.api.delete("pedidos/"+ pedido.id )
 		.then((data)=>{
-			this.api.user.pedidos.splice(index, 1);
+			user.pedidos.splice(index, 1);
 			this.status[tipo] = false;
 		})
 		.catch((err)=>{
@@ -191,7 +203,7 @@ export class HomePage {
 
 	verifyNotifications(){
 		this.noti.clearAll();
-		if(( this.status.almuerzo === false &&  this.status.comida === false && this.status.cena === false) && moment().hour() < 17){
+		if(( this.status.almuerzo === false &&  this.status.comida === false && this.status.cena === false) && moment().hour() < 17 && !this.api.user.is_vendedor){
 			this.noti.schedule({
 				title: "Haz tu pedido ya!",
 				text: 'ya es el momento de realizar el pedido, si aun no lo has hecho',
@@ -199,5 +211,24 @@ export class HomePage {
 				led: 'FF0000',
 			});
 		}
+	}
+
+	selectClientes(){
+		var modal =this.modal.create(Selector,{uri: "users", append: "limit=50&where[cliente_id]="+ this.api.user.cliente_id,
+			attributes: ["whereLike[nombre]"],
+			image: 'imagen'
+		});
+		modal.present();
+		modal.onWillDismiss((data)=>{
+			this.status = {
+				almuerzo: undefined,
+				comida: undefined,
+				cena: undefined,
+			}
+			this.api.user_selected = data.selected;
+			this.api.index=0;
+			this.loading = true;
+			this.getPedidos();
+		});
 	}
 }

@@ -26,6 +26,7 @@ export class HomePage {
 	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public noti:LocalNotifications) { }
 
 	ionViewDidLoad() {
+		this.api.index=0;
 		this.api.storage.ready()
 			.then(() => {
 				this.api.storage.get("user").then((user: any) => {

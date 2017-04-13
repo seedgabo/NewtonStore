@@ -1,19 +1,19 @@
 <ion-header>
 
 	<ion-navbar hideBackButton color="primary">
-		<ion-title>Mi Pedido</ion-title>
+		<ion-item>
+			<ion-label ion-text color="dark">Dirección de envio</ion-label>
+			<ion-select [(ngModel)]="entidad_id">
+				<ion-option [value]="entidad.id" *ngFor="let entidad of entidades">{{entidad.name}}</ion-option>
+			</ion-select>
+		</ion-item>
 	</ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
+	<h3>Mi Pedido</h3>
 	<div *ngIf="productos.length > 0 && procesado == false">
-		<ion-item color="secondary">
-			<ion-label ion-text color="light">Dirección de envio</ion-label>
-			<ion-select [(ngModel)]="entidad_id">
-				<ion-option [value]="entidad.id" *ngFor="let entidad of entidades">{{entidad.name}}</ion-option>
-			</ion-select>
-		</ion-item>
 		<ion-list>
 			<ion-item *ngFor="let prod of productos">
 				<ion-avatar item-left>

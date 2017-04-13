@@ -26,7 +26,7 @@ export class PedidoPage {
 			this.alert.create({message:"Error al cargar las direcciones", buttons:["Ok"]}).present();
 		})
 
-		this.entidad_id = this.api.user.entidad_id;
+		// this.entidad_id = this.api.user.entidad_id;
 		console.log(this.entidad_id);
     }
 
@@ -82,6 +82,7 @@ export class PedidoPage {
                 this.procesado = true;
 				this.pedido = data;
                 this.toast.create({message:"Pedido Procesado",duration:3000}).present();
+				this.navCtrl.setRoot(VerPedidoPage,{pedido:this.pedido});
             });
 			this.api.storage.set('last_pedido', moment().format('Y-M-D'));
             console.log(data);

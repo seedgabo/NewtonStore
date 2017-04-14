@@ -15,13 +15,15 @@ export class Api {
     url:string = 'http://seguimiento.duflosa.com:8080/pedidos/public/';
     // url:string = 'http://localhost/newton/public/';
     user:any={token: null};
-	user_selected = undefined;
     pushData:any;
     carrito = [];
     vista='grid';
 	tipo = "";
     categorias = [44,27,46,47,48,49,26,45,50,51,52,53];
     index = 0;
+
+	user_selected:any = undefined;
+	cupon:any = undefined;
     constructor(public http: Http, private platform:Platform, public storage:Storage, public push:Push){
         this.initVar();
     }

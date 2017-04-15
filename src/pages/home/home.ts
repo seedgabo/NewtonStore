@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { TutorialPage } from "../tutorial/tutorial";
 import { Selector } from '../selector/selector';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { Clipboard } from "@ionic-native/clipboard";
 @Component({
 	selector: 'page-home',
 	templateUrl: 'home.html'
@@ -25,7 +26,7 @@ export class HomePage {
 		cena: undefined,
 	}
 	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public modal: ModalController,
-		public noti: LocalNotifications) { }
+		public noti: LocalNotifications, public clipboard:Clipboard) { }
 
 	ionViewDidLoad() {
 		this.api.index = 0;
@@ -152,7 +153,7 @@ export class HomePage {
 	}
 
 	canOrder() {
-		return (this.status.comida === false && this.status.cena === false && this.status.almuerzo === false);
+		return  this.api.cupon || (this.status.comida === false && this.status.cena === false && this.status.almuerzo === false);
 	}
 
 	deletePedido(ev, tipo) {
@@ -256,13 +257,28 @@ export class HomePage {
 	}
 
 	verCupon(numero){
-		this.api.get("cupones?where[code]="+numero+"&whereNull[]=usado_at")
-		.then((data)=>{
+		this.api.get("cupones?where[code]="+numero+"&scope[valido]")
+		.then((data:Array<any>)=>{
 			console.log(data);
+			if(data.length !=0){
+				this.api.cupon = data[0];
+			}else{
+				this.alert.create({buttons:["Ok"],message:"cupon invalido"}).present();
+			}
 		})
 		.catch((err)=>{
 			this.alert.create({buttons:["Ok"],message:"Error al aplicar el cupon"}).present();
 		});
 	}
 
+	generateCupon(){
+		this.api.post("cupones", {code:null, valido_hasta: moment().startOf('day').add(1,"day").toISOString().substring(0,10)})
+		.then((cupon:any)=>{
+			this.clipboard.copy(cupon.code);
+			this.alert.create({message:"Codigo Cupon",title: cupon.code, subTitle:"Copiado en el  portapapeles",buttons:["OK"]}).present();
+		})
+		.catch((err)=>{
+			this.alert.create({title:"No se pudo generar el cupon", buttons:["OK"]}).present();
+		});
+	}
 }

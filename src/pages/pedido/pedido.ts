@@ -67,6 +67,9 @@ export class PedidoPage {
         data.estado = "Pedido";
 		data.tipo = this.api.tipo;
 		data.facturar = false;
+		if(this.api.cupon != undefined){
+			data.cupon_code = this.api.cupon.code;
+		}
         this.api.carrito.forEach((prod)=>{
             if(prod.id != 0)
                 data.items.push(prod);
@@ -86,6 +89,7 @@ export class PedidoPage {
                 this.api.clearCarrito();
                 this.procesado = true;
 				this.pedido = data;
+				this.api.cupon = undefined;
                 this.toast.create({message:"Pedido Procesado",duration:3000}).present();
 				this.navCtrl.setRoot(VerPedidoPage,{pedido:this.pedido});
             });

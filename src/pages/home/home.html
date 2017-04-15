@@ -94,6 +94,8 @@
 			</button>
 		</div>
 	</ion-card>
-
+<ion-fab bottom right *ngIf="api.user.admin">
+    <button ion-fab color="favorite" (click)="generateCupon()"><ion-icon name="closed-captioning"></ion-icon></button>
+</ion-fab>
 
 </ion-content>

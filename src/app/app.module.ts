@@ -29,6 +29,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Push } from '@ionic-native/push';
+import { Clipboard } from '@ionic-native/clipboard';
 @NgModule({
 	declarations: [
 		MyApp,
@@ -71,7 +72,7 @@ import { Push } from '@ionic-native/push';
 		Selector
 	],
 	providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Api,
-		CodePush, SplashScreen, StatusBar, LocalNotifications, Push
+		CodePush, SplashScreen, StatusBar, LocalNotifications, Push,Clipboard
 	]
 })
 export class AppModule { }

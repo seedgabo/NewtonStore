@@ -22,6 +22,7 @@
 				<h3>{{prod.name}}
 					<ion-badge color="favorite" *ngIf="prod.categoria_id == 39">Periferico</ion-badge>
 				</h3>
+				<p  [innerHTML]="prod.description">	</p>
 				<ion-badge item-right>{{prod.cantidad_pedidos}}</ion-badge>
 			</ion-item>
 		</ion-list>

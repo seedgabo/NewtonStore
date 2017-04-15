@@ -103,7 +103,7 @@ export class HomePage {
 	ordenar(tipo) {
 		console.log(tipo);
 		console.log(this.status[tipo]);
-		if (!this.canOrder() || !this.in_horario) {
+		if (!this.canOrder(tipo) || !this.in_horario) {
 			return;
 		}
 		this.api.setProgramacion(this.progamacion[tipo]);
@@ -152,8 +152,10 @@ export class HomePage {
 
 	}
 
-	canOrder() {
-		return  this.api.cupon || (this.status.comida === false && this.status.cena === false && this.status.almuerzo === false);
+	canOrder(tipo = null) {
+		if((this.api.cupon && this.status[tipo] == false) || (this.status.comida === false && this.status.cena === false && this.status.almuerzo === false))
+			return true;
+		return false;
 	}
 
 	deletePedido(ev, tipo) {

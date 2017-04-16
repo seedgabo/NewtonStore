@@ -13,6 +13,7 @@ export class PedidoPage {
 	entidades = [];
 	pedido = null;
 	entidad_id;
+	sub_entidad_id;
     constructor(public navCtrl: NavController, public navParams: NavParams, public api:Api, public loading:LoadingController,public toast:ToastController,public alert:AlertController) {}
 
     ionViewDidLoad(){
@@ -46,16 +47,17 @@ export class PedidoPage {
     }
 
     processCarrito(){
+        var data:any = {items:[]};
 		if(this.entidad_id == undefined){
 			this.alert.create({message: "Elija una dirección de envió", buttons: ["OK"]}).present();
 			return;
 		}
 		if(this.api.user_selected){
 			var user = this.api.user_selected;
+			data.vendedor_id = this.api.user.id;
 		}else{
 			var user = this.api.user;
 		}
-        var data:any = {items:[]};
         data.user_id = user.id;
 		data.entidad_id = user.entidad_id;
         data.cliente_id = user.cliente_id;
@@ -63,7 +65,7 @@ export class PedidoPage {
         data.fecha_entrega = moment().add(1, 'days').toDate().toISOString().substring(0,10);
         data.fecha_pedido = moment().add(1, 'days').toDate().toISOString().substring(0,10);
 		data.entidad_id = this.entidad_id;
-		data.direccion_envio = this.getDireccion(this.entidad_id);
+		data.direccion_envio = this.getDireccion();
         data.estado = "Pedido";
 		data.tipo = this.api.tipo;
 		data.facturar = false;
@@ -103,6 +105,13 @@ export class PedidoPage {
         });
     }
 
+	moment(str = null){
+		if(str != null)
+			return moment(str);
+		else
+			return moment();
+	}
+
 	verPedido(){
 		this.navCtrl.setRoot(VerPedidoPage,{pedido:this.pedido});
 	}
@@ -122,11 +131,24 @@ export class PedidoPage {
 		});
 	}
 
-	getDireccion(entidad_id){
+	getDireccion(){
 		var entidad = this.entidades.find((ent)=>{
-				return entidad_id  == ent.id;
+				if(this.sub_entidad_id != undefined)
+					return this.sub_entidad_id  == ent.id;
+				else
+					return this.entidad_id  == ent.id;
 			});
 		return entidad.full_name;
+	}
+
+	filterEntidad(entidad_id = null){
+		return this.entidades.filter((ent)=>{
+			 if(entidad_id == null){
+				 return ent.parent_id == null || ent.parent_id ==0;
+			 }else{
+				 return ent.parent_id == entidad_id
+			 }
+		});
 	}
 
 }

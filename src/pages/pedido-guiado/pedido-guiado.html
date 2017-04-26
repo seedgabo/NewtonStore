@@ -1,46 +1,50 @@
 <ion-header>
 
-  <ion-navbar hideBackButton  color="primary">
-    <ion-title style="white-space:normal;"> 
-		{{categoria ? categoria.nombre : '' }}
-	</ion-title>
+  <ion-navbar hideBackButton color="primary">
+    <ion-title style="white-space:normal;">
+      {{categoria ? categoria.nombre : '' }}
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-	<div text-center *ngIf="loader">
-		<ion-spinner color="primary"></ion-spinner>
-	</div>
-    <ion-list>
-        <ion-item *ngFor="let producto of productos" [ngClass]="{'selected': producto_selected == producto}" (click)="selectproducto(producto)">
+  <div text-center *ngIf="loader">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <ion-list>
+    <button ion-item [disabled]="restringido" *ngFor="let producto of productos" [ngClass]="{'selected': producto_selected == producto}"
+      (click)="selectproducto(producto)">
             <ion-avatar item-left>
                 <img [src]="producto.image_url" [alt]="producto.name">
             </ion-avatar>
             <h2>{{producto.name}}</h2>
 			<p class="e2e-inner-html-bound" [innerHTML]="producto.description" style="white-space:normal"></p>
-        </ion-item>
+        </button>
 
-        <ion-item [ngClass]="{'selected': producto_selected == udnefined}"  (click)="selectproducto('none')">
-			<ion-avatar item-left>
-                <img src="./assets/img/none.png">
-            </ion-avatar>
-            <h2>Ninguno</h2>
-        </ion-item>
-    </ion-list>
+    <ion-item [ngClass]="{'selected': producto_selected == udnefined}" (click)="selectproducto('none')">
+      <ion-avatar item-left>
+        <img src="./assets/img/none.png">
+      </ion-avatar>
+      <h2>Ninguno</h2>
+    </ion-item>
+    <ion-item>
+      <h2 ion-text *ngIf="restringido " color="danger">Debe pedir este item en la pantalla de perifericos</h2>
+    </ion-item>
+  </ion-list>
 </ion-content>
 
 <ion-footer>
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <button ion-button clear color="dark" full [disabled]="!cangoBack()" (click)="atras()">Atrás</button>
-            </ion-col>
-            <ion-col >
-                <button ion-button color="secondary" full [hidden]="!cangoNext()" (click)="siguiente()">Siguiente</button>
-                <button ion-button color="secondary" full [hidden]="cangoNext()" (click)="terminar()">Contiuar Pedido</button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button clear color="dark" full [disabled]="!cangoBack()" (click)="atras()">Atrás</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="secondary" full [hidden]="!cangoNext()" (click)="siguiente()">Siguiente</button>
+        <button ion-button color="secondary" full [hidden]="cangoNext()" (click)="terminar()">Contiuar Pedido</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-footer>

@@ -1,5 +1,6 @@
 import { LoginPage } from '../login/login';
 import { PedidoGuiadoPage } from '../pedido-guiado/pedido-guiado';
+import { VerPedidoPage } from "../ver-pedido/ver-pedido";
 import { Api } from '../../providers/Api';
 import { Component } from '@angular/core';
 import { ModalController, AlertController, NavController, NavParams } from 'ionic-angular';
@@ -26,7 +27,7 @@ export class HomePage {
 		cena: undefined,
 	}
 	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public modal: ModalController,
-		public noti: LocalNotifications, public clipboard:Clipboard) { }
+		public noti: LocalNotifications, public clipboard: Clipboard) { }
 
 	ionViewDidLoad() {
 		this.api.index = 0;
@@ -59,7 +60,7 @@ export class HomePage {
 		this.api.doLogin().then(
 			(response: any) => {
 				this.api.user = response;
-				if (moment(response.last_login.date).hour() >= 17) {
+				if (moment(response.last_login.date).hour() >= 24) {
 					this.in_horario = false;
 				}
 				this.api.saveUser(response);
@@ -117,7 +118,7 @@ export class HomePage {
 		} else {
 			var user = this.api.user;
 		}
-		this.api.get("pedidos?whereDateBetween[created_at]=today,tomorrow&where[user_id]=" + user.id).then(
+		this.api.get("pedidos?with[]=items&&whereDateBetween[created_at]=today,tomorrow&where[user_id]=" + user.id).then(
 			(data: Array<any>) => {
 				console.log("pedidos", data);
 				user.pedidos = data;
@@ -153,9 +154,24 @@ export class HomePage {
 	}
 
 	canOrder(tipo = null) {
-		if((this.api.cupon && this.status[tipo] == false) || (this.status.comida === false && this.status.cena === false && this.status.almuerzo === false))
+		if ((this.api.cupon && this.status[tipo] == false) || (this.status.comida === false && this.status.cena === false && this.status.almuerzo === false))
 			return true;
 		return false;
+	}
+
+	verPedido(ev, tipo) {
+		ev.stopPropagation();
+		if (this.api.user_selected) {
+			var user = this.api.user_selected;
+		} else {
+			var user = this.api.user;
+		}
+		var pedido = user.pedidos.find((ped) => {
+			return ped.tipo == tipo;
+		});
+		if (pedido) {
+			this.navCtrl.push(VerPedidoPage, { pedido: pedido });
+		}
 	}
 
 	deletePedido(ev, tipo) {
@@ -238,9 +254,9 @@ export class HomePage {
 
 	askCupon() {
 		this.alert.create({
-			inputs:[
+			inputs: [
 				{
-					label:"# Cupon",
+					label: "# Cupon",
 					placeholder: "0000",
 					name: "cupon"
 				}
@@ -258,29 +274,29 @@ export class HomePage {
 		}).present();
 	}
 
-	verCupon(numero){
-		this.api.get("cupones?where[code]="+numero+"&scope[valido]")
-		.then((data:Array<any>)=>{
-			console.log(data);
-			if(data.length !=0){
-				this.api.cupon = data[0];
-			}else{
-				this.alert.create({buttons:["Ok"],message:"cupon invalido"}).present();
-			}
-		})
-		.catch((err)=>{
-			this.alert.create({buttons:["Ok"],message:"Error al aplicar el cupon"}).present();
-		});
+	verCupon(numero) {
+		this.api.get("cupones?where[code]=" + numero + "&scope[valido]")
+			.then((data: Array<any>) => {
+				console.log(data);
+				if (data.length != 0) {
+					this.api.cupon = data[0];
+				} else {
+					this.alert.create({ buttons: ["Ok"], message: "cupon invalido" }).present();
+				}
+			})
+			.catch((err) => {
+				this.alert.create({ buttons: ["Ok"], message: "Error al aplicar el cupon" }).present();
+			});
 	}
 
-	generateCupon(){
-		this.api.post("cupones", {code:null, valido_hasta: moment().startOf('day').add(1,"day").toISOString().substring(0,10)})
-		.then((cupon:any)=>{
-			this.clipboard.copy(cupon.code);
-			this.alert.create({message:"Codigo Cupon",title: cupon.code, subTitle:"Copiado en el  portapapeles",buttons:["OK"]}).present();
-		})
-		.catch((err)=>{
-			this.alert.create({title:"No se pudo generar el cupon", buttons:["OK"]}).present();
-		});
+	generateCupon() {
+		this.api.post("cupones", { code: null, valido_hasta: moment().startOf('day').add(1, "day").toISOString().substring(0, 10) })
+			.then((cupon: any) => {
+				this.clipboard.copy(cupon.code);
+				this.alert.create({ message: "Codigo Cupon", title: cupon.code, subTitle: "Copiado en el  portapapeles", buttons: ["OK"] }).present();
+			})
+			.catch((err) => {
+				this.alert.create({ title: "No se pudo generar el cupon", buttons: ["OK"] }).present();
+			});
 	}
 }

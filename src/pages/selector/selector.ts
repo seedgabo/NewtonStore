@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, ViewController,  IonicPage,  NavController,  NavParams} from 'ionic-angular';
+import { AlertController, ViewController, NavController, NavParams } from 'ionic-angular';
 import { Api } from '../../providers/Api';
 // @IonicPage()
 @Component({
@@ -7,20 +7,20 @@ import { Api } from '../../providers/Api';
 	templateUrl: 'selector.html',
 })
 export class Selector {
-		image: any;
-		icon: any;
-		description: any;
+	image: any;
+	icon: any;
+	description: any;
 	append = "limit=50";
 	attributes = ["query"];
 	title = "Busqueda";
-	text="full_name";
+	text = "full_name";
 	list: Array<any> = [];
 	selected: any;
 	uri = "clientes";
 	query = "";
-	load=false;
+	load = false;
 	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public viewctrl: ViewController,
-	public alert:AlertController) {
+		public alert: AlertController) {
 		if (this.navParams.get("uri") != undefined) {
 			this.uri = this.navParams.get("uri");
 		}
@@ -55,34 +55,34 @@ export class Selector {
 	}
 
 	search() {
-		this.load=true;
-		var uri = this.uri+"?";
+		this.load = true;
+		var uri = this.uri + "?";
 		this.attributes.forEach((attr) => {
-			uri+= `${attr}=`+ this.query +'&';
+			uri += `${attr}=` + this.query + '&';
 		});
-		uri +=this.append;
+		uri += this.append;
 		this.api.get(uri)
-		.then((data:any)=>{
-			this.list =data;
-			this.load = false;
-		})
-		.catch((err)=>{
-			this.alert.create({buttons:["OK"], title:"Error al buscar", message: err}).present();
-			this.load = false;
-		});
+			.then((data: any) => {
+				this.list = data;
+				this.load = false;
+			})
+			.catch((err) => {
+				this.alert.create({ buttons: ["OK"], title: "Error al buscar", message: err }).present();
+				this.load = false;
+			});
 
 	}
 
-	select(item){
+	select(item) {
 		this.selected = item;
 		this.save();
 	}
-	save(){
-		this.viewctrl.dismiss({selected: this.selected});		
+	save() {
+		this.viewctrl.dismiss({ selected: this.selected });
 	}
 
-	close(){
-		this.viewctrl.dismiss({selected: undefined});
+	close() {
+		this.viewctrl.dismiss({ selected: undefined });
 	}
 
 }

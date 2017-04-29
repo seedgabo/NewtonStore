@@ -23,12 +23,11 @@ export class PedidoGuiadoPage {
     ionViewDidLoad() {
         this.categoria = this.params.get('categoria');
 
-        if (this.api.entidad_ids.indexOf(this.api.user.entidad_id) > -1) {
-            if (this.api.restricted_categorias.indexOf(this.categoria.id) > -1)
-                this.restringido = true;
-            else
+        if (this.api.restricted_categorias.indexOf(this.categoria.id) > -1) {
+            this.restringido = true;
+            if (this.api.entidad_ids.indexOf(this.api.user.entidad_id) > -1) {
                 this.restringido = false;
-
+            }
         }
 
         this.productos = this.api.productos.filter((prod) => {

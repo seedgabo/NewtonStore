@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.seedg.dufloped" version="1.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Newton Duflo Pedidos</name>
-  <description>AAplicacion de pedidos Newton Duflo</description>
+  <description>Aplicacion de pedidos Newton Duflo</description>
   <author email="hi@ionicframework" href="http://newton.eycproveedores.com/">Newton Developers</author>
   <content src="index.html"/>
   <access origin="*"/>

@@ -144,10 +144,8 @@ export class PedidoPage {
 
 	getDireccion() {
 		var entidad = this.entidades.find((ent) => {
-			if (this.sub_entidad_id != undefined)
-				return this.sub_entidad_id == ent.id;
-			else
-				return this.entidad_id == ent.id;
+			return this.api.user.entidad_id == ent.id;
+
 		});
 		return entidad.full_name;
 	}

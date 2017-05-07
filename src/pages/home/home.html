@@ -15,6 +15,18 @@
 
 
 <ion-content class="card-background-page">
+  <ion-item>
+    <ion-label ion-text color="dark">Dirección de envio</ion-label>
+    <ion-select [(ngModel)]="entidad_id" (ionChange)="changeEntidad(entidad_id)">
+      <ion-option [value]="entidad.id" *ngFor="let entidad of filterEntidad()">{{entidad.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="entidad_id">
+    <ion-label ion-text color="dark">Ubicaciones</ion-label>
+    <ion-select [(ngModel)]="sub_entidad_id" (ionChange)="changeEntidad(sub_entidad_id)">
+      <ion-option [value]="entidad.id" *ngFor="let entidad of filterEntidad(entidad_id)">{{entidad.name}}</ion-option>
+    </ion-select>
+  </ion-item>
 
   <!--<img src="http://newton.eycproveedores.com/newton/public/img/logo-newton.png" style="height:120px; margin-top:20%" alt="">-->
   <!--<h1 text-center color="primary" [ngClass]="{'dissapear' :  loading}"> Descargando Menú... </h1>-->

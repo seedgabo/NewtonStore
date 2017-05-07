@@ -25,6 +25,11 @@ export class Api {
     restricted_categorias = [26, 45, 50, 61];
     user_selected: any = undefined;
     cupon: any = undefined;
+    pedidos_ayer = {
+        almuerzo: null,
+        comida: null,
+        cena: null
+    };
     constructor(public http: Http, private platform: Platform, public storage: Storage, public push: Push) {
         this.initVar();
     }

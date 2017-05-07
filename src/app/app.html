@@ -1,41 +1,59 @@
 <ion-split-pane>
-<ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>
+  <ion-menu [content]="content">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>
           <img [src]="api.url + 'img/logo-newton.png'" style="height:70px;" item-left alt="">
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+    <ion-content>
+      <ion-list>
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
           <ion-icon [name]="p.icon" item-left color="primary"></ion-icon>
         {{p.title}}
       </button>
-      <button menuClose ion-item  (click)="verperfil()" *ngIf="api.user.token != null">
-          <ion-icon name="person" item-left color="primary"></ion-icon>
-          Mi Perfil
-      </button>
-		<!--<button menuClose ion-item  (click)="verMisPedidos()" *ngIf="api.user.token != null">
+        <!--<button menuClose ion-item  (click)="verMisPedidos()" *ngIf="api.user.token != null">
           <ion-icon name="cart" item-left color="primary"></ion-icon>
           Mis Pedidos
       </button>-->
-      <button menuClose ion-item  (click)="verTutorial()">
+        <button menuClose ion-item (click)="verTutorial()">
           <ion-icon name="help" item-left color="primary"></ion-icon>
           Tutorial
       </button>
-	  <hr>
-      <button menuClose ion-item  (click)="logout()" *ngIf="api.user.token != null">
+        <ion-item-divider *ngIf="api.user.token != null && api.pedidos_ayer.almuerzo || api.pedidos_ayer.comida || api.pedidos_ayer.cena">
+          Cancelar Pedidos de Ayer
+        </ion-item-divider>
+        <button menuClose ion-item detail-none (click)="cancelarPedido('almuerzo')" *ngIf="api.user.token != null && api.pedidos_ayer.almuerzo && hora < 8">
+          <ion-icon name="close" item-right color="danger"></ion-icon>
+          Cancelar Almuerzo
+      </button>
+        <button menuClose ion-item detail-none (click)="cancelarPedido('comida')" *ngIf="api.user.token != null && api.pedidos_ayer.comida && hora <= 15 &&  minutos < 30">
+          <ion-icon name="close" item-right color="danger"></ion-icon>
+          Cancelar Comida
+      </button>
+
+        <button menuClose ion-item detail-none (click)="cancelarPedido('cena')" *ngIf="api.user.token != null && api.pedidos_ayer.cena && hora < 20">
+          <ion-icon name="close" item-right color="danger"></ion-icon>
+          Cancelar Cena
+      </button>
+        <ion-item-divider>
+          Usuario
+        </ion-item-divider>
+        <button menuClose ion-item (click)="verperfil()" *ngIf="api.user.token != null">
+          <ion-icon name="person" item-left color="primary"></ion-icon>
+          Mi Perfil
+      </button>
+        <button menuClose ion-item (click)="logout()" *ngIf="api.user.token != null">
           <ion-icon name="log-out" item-left color="danger"></ion-icon>
           Cerrar Sesión
       </button>
-    </ion-list>
-  </ion-content>
+      </ion-list>
+    </ion-content>
 
-</ion-menu>
+  </ion-menu>
 
-<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content main swipeBackEnabled="false"></ion-nav>
+  <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+  <ion-nav [root]="rootPage" #content main swipeBackEnabled="false"></ion-nav>
 </ion-split-pane>

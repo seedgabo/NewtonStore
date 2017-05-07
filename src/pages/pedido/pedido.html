@@ -1,68 +1,68 @@
 <ion-header>
 
-	<ion-navbar hideBackButton color="primary">
-		<ion-item>
-			<ion-label ion-text color="dark">Dirección de envio</ion-label>
-			<ion-select [(ngModel)]="entidad_id">
-				<ion-option [value]="entidad.id" *ngFor="let entidad of filterEntidad()">{{entidad.name}}</ion-option>
-			</ion-select>
-		</ion-item>
-		<ion-item *ngIf="entidad_id">
-			<ion-label ion-text color="dark">Ubicaciones</ion-label>
-			<ion-select [(ngModel)]="sub_entidad_id">
-				<ion-option [value]="entidad.id" *ngFor="let entidad of filterEntidad(entidad_id)">{{entidad.name}}</ion-option>
-			</ion-select>
-		</ion-item>
-	</ion-navbar>
+  <ion-navbar hideBackButton color="primary">
+    Confirmar Pedido
+  </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-	<h3>Mi Pedido:</h3>
-	<h5><b>Fecha de Entrega:</b> <span> {{ moment().add(1,'day').format('LL')}}</span> </h5>
-	<div *ngIf="productos.length > 0 && procesado == false">
-		<ion-list>
-			<ion-item *ngFor="let prod of productos">
-				<ion-avatar item-left>
-					<img [src]="prod.image_url" alt="">
-				</ion-avatar>
-				<h3>{{prod.name}}
-					<ion-badge color="favorite" *ngIf="prod.categoria_id == 39">Periferico</ion-badge>
-				</h3>
-				<p  [innerHTML]="prod.description">	</p>
-				<ion-badge item-right>{{prod.cantidad_pedidos}}</ion-badge>
-			</ion-item>
-		</ion-list>
-		<ion-card *ngIf="productos.length == 0 && procesado == false">
-			<h1>
-				No hay nada en el carrito
-			</h1>
-		</ion-card>
-	</div>
+  <h3>Mi Pedido:</h3>
+  <div *ngIf="!this.api.cupon">
+    <h5><b>Fecha de Entrega:</b> <span> {{ moment().add(1,'day').format('LL')}}</span> </h5>
+  </div>
+  <div *ngIf="this.api.cupon">
+    <ion-item>
+      <ion-label>Fecha de Entrega</ion-label>
+      <ion-select ([ngModel])="delivery">
+        <ion-option value="today">Hoy</ion-option>
+        <ion-option value="tomorrow">Mañana</ion-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <div *ngIf="productos.length > 0 && procesado == false">
+    <ion-list>
+      <ion-item *ngFor="let prod of productos">
+        <ion-avatar item-left>
+          <img [src]="prod.image_url" alt="">
+        </ion-avatar>
+        <h3>{{prod.name}}
+          <ion-badge color="favorite" *ngIf="prod.categoria_id == 39">Periferico</ion-badge>
+        </h3>
+        <p [innerHTML]="prod.description"> </p>
+        <ion-badge item-right>{{prod.cantidad_pedidos}}</ion-badge>
+      </ion-item>
+    </ion-list>
+    <ion-card *ngIf="productos.length == 0 && procesado == false">
+      <h1>
+        No hay nada en el carrito
+      </h1>
+    </ion-card>
+  </div>
 
-	<div style="text-align:center;vertical-align:middle;height:90%;" *ngIf="productos.length == 0 && procesado == true">
-		<h2>Su Pedido fue Procesado Correctamente</h2>
+  <div style="text-align:center;vertical-align:middle;height:90%;" *ngIf="productos.length == 0 && procesado == true">
+    <h2>Su Pedido fue Procesado Correctamente</h2>
 
-		<ion-icon style="display:block; font-size:68px;" large color="secondary" name="checkmark-circle"></ion-icon>
+    <ion-icon style="display:block; font-size:68px;" large color="secondary" name="checkmark-circle"></ion-icon>
 
-		<button ion-button outline color="primary" large (click)="verPedido()"> Ver Pedido</button>
+    <button ion-button outline color="primary" large (click)="verPedido()"> Ver Pedido</button>
 
 
-	</div>
+  </div>
 </ion-content>
 
 
 <ion-footer>
-	<!-- <ion-toolbar> -->
-	<ion-grid>
-		<ion-row>
-			<ion-col>
-				<button ion-button outline color="dark" full (click)="atras()">Atras</button>
-			</ion-col>
-			<ion-col>
-				<button ion-button full color="primary" (click)="processCarrito()" [disabled]="productos.length == 0">Confirmar Pedido</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
-	<!-- </ion-toolbar> -->
+  <!-- <ion-toolbar> -->
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button outline color="dark" full (click)="atras()">Atras</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button full color="primary" (click)="processCarrito()" [disabled]="productos.length == 0">Confirmar Pedido</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- </ion-toolbar> -->
 </ion-footer>

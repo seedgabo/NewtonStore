@@ -26,8 +26,10 @@ export class HomePage {
 		comida: undefined,
 		cena: undefined,
 	}
-	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public modal: ModalController,
-		public noti: LocalNotifications, public clipboard: Clipboard) { }
+	entidades = [];
+	entidad_id;
+	sub_entidad_id;
+	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public modal: ModalController, public noti: LocalNotifications, public clipboard: Clipboard) { }
 
 	ionViewDidLoad() {
 		this.api.index = 0;
@@ -38,6 +40,7 @@ export class HomePage {
 						this.loading = true;
 						this.api.user = JSON.parse(user);
 						this.getProgramaciones();
+						this.getEntidades();
 						this.getUser();
 					}
 					else {
@@ -60,12 +63,13 @@ export class HomePage {
 		this.api.doLogin().then(
 			(response: any) => {
 				this.api.user = response;
-				if (moment(response.last_login.date).hour() >= 24) {
+				if (moment(response.last_login.date).hour() >= 22) {
 					this.in_horario = false;
 				}
 				this.api.saveUser(response);
 				this.api.saveData();
 				this.getPedidos();
+				this.getPedidosAyer();
 			}
 		)
 			.catch((err) => {
@@ -151,6 +155,53 @@ export class HomePage {
 			}
 			)
 
+	}
+
+	getPedidosAyer() {
+		if (this.api.user_selected) {
+			var user = this.api.user_selected;
+		} else {
+			var user = this.api.user;
+		}
+		this.api.get("pedidos?with[]=items&&whereDateBetween[created_at]=yesterday,today&where[user_id]=" + user.id)
+			.then(
+			(data: Array<any>) => {
+				console.log("pedidos de ayer", data);
+				data.forEach(pedido => {
+					if (pedido.tipo == 'almuerzo')
+						this.api.pedidos_ayer.almuerzo = pedido;
+					if (pedido.tipo == 'comida')
+						this.api.pedidos_ayer.comida = pedido;
+					if (pedido.tipo == 'cena')
+						this.api.pedidos_ayer.cena = pedido;
+				});
+			})
+			.catch(
+			(err) => {
+				console.warn(err);
+			})
+
+	}
+
+	getEntidades() {
+		this.api.get("entidades").then((data: Array<any>) => {
+			this.entidades = data;
+		}).catch(() => {
+			this.alert.create({ message: "Error al cargar las direcciones", buttons: ["Ok"] }).present();
+		})
+	}
+	filterEntidad(entidad_id = null) {
+		return this.entidades.filter((ent) => {
+			if (entidad_id == null) {
+				return ent.parent_id == null || ent.parent_id == 0;
+			} else {
+				return ent.parent_id == entidad_id
+			}
+		});
+	}
+	changeEntidad(entidad) {
+		this.api.user.entidad_id = entidad;
+		console.log(entidad);
 	}
 
 	canOrder(tipo = null) {
@@ -249,6 +300,7 @@ export class HomePage {
 			this.api.index = 0;
 			this.loading = true;
 			this.getPedidos();
+			this.getPedidosAyer();
 		});
 	}
 

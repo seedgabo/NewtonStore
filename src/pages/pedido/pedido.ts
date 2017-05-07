@@ -14,6 +14,7 @@ export class PedidoPage {
 	pedido = null;
 	entidad_id;
 	sub_entidad_id;
+	delivery = "today"
 	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public loading: LoadingController, public toast: ToastController, public alert: AlertController) { }
 
 	ionViewDidLoad() {
@@ -67,6 +68,11 @@ export class PedidoPage {
 		data.fecha_envio = moment().add(1, 'days').toDate().toISOString().substring(0, 10);
 		data.fecha_entrega = moment().add(1, 'days').toDate().toISOString().substring(0, 10);
 		data.fecha_pedido = moment().add(1, 'days').toDate().toISOString().substring(0, 10);
+		if (this.api.cupon && this.delivery == 'today') {
+			data.fecha_envio = moment().toDate().toISOString().substring(0, 10);
+			data.fecha_entrega = moment().toDate().toISOString().substring(0, 10);
+			data.fecha_pedido = moment().toDate().toISOString().substring(0, 10);
+		}
 		data.entidad_id = this.entidad_id;
 		data.direccion_envio = this.getDireccion();
 		data.estado = "Pedido";

@@ -21,7 +21,7 @@
       <ion-option [value]="entidad.id" *ngFor="let entidad of filterEntidad()">{{entidad.name}}</ion-option>
     </ion-select>
   </ion-item>
-  <ion-item *ngIf="entidad_id">
+  <ion-item *ngIf="entidad_id && filterEntidad(entidad_id).length > 0">
     <ion-label ion-text color="dark">Ubicaciones</ion-label>
     <ion-select [(ngModel)]="sub_entidad_id" (ionChange)="changeEntidad(sub_entidad_id)">
       <ion-option [value]="entidad.id" *ngFor="let entidad of filterEntidad(entidad_id)">{{entidad.name}}</ion-option>

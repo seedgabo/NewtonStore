@@ -52,6 +52,7 @@ export class PedidoPage {
 
 	processCarrito() {
 		var data: any = { items: [] };
+		this.entidad_id = this.api.user.entidad_id;
 		if (this.entidad_id == undefined) {
 			this.alert.create({ message: "Elija una dirección de envió", buttons: ["OK"] }).present();
 			return;

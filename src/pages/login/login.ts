@@ -2,12 +2,19 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Api } from '../../providers/Api';
 import { HomePage } from "../home/home";
+import { Terms } from "../terms/terms";
 @Component({
     selector: 'page-login',
     templateUrl: 'login.html'
 })
 export class LoginPage {
-
+    register = false;
+    password = "";
+    confirm_password = "";
+    nombre = "";
+    username = "";
+    cedula;
+    terms = false;
     constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public loading: LoadingController) { }
 
     ionViewDidLoad() {
@@ -35,6 +42,21 @@ export class LoginPage {
             loading.dismiss();
             this.alert.create({ title: "Error", message: "Error al iniciar sesión", buttons: ["Ok"] }).present();
         });
+    }
+
+    registrarse() {
+        this.register = !this.register;
+    }
+
+    canRegister() {
+        return (this.password == this.confirm_password && this.password.length > 5 && this.username.length > 5 && this.terms && this.nombre.length > 5 && this.cedula > 1000);
+    }
+
+    doRegister() {
+        // TODO: register;
+    }
+    verTerms() {
+        this.navCtrl.push(Terms);
     }
 
     forgotPassword() {

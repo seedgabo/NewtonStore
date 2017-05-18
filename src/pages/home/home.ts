@@ -3,7 +3,7 @@ import { PedidoGuiadoPage } from '../pedido-guiado/pedido-guiado';
 import { VerPedidoPage } from "../ver-pedido/ver-pedido";
 import { Api } from '../../providers/Api';
 import { Component } from '@angular/core';
-import { ModalController, AlertController, NavController, NavParams } from 'ionic-angular';
+import { ModalController, AlertController, NavController, NavParams, ToastController } from 'ionic-angular';
 import * as moment from 'moment';
 import { TutorialPage } from "../tutorial/tutorial";
 import { Selector } from '../selector/selector';
@@ -29,7 +29,7 @@ export class HomePage {
 	entidades = [];
 	entidad_id;
 	sub_entidad_id;
-	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public modal: ModalController, public noti: LocalNotifications, public clipboard: Clipboard) { }
+	constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api, public alert: AlertController, public modal: ModalController, public noti: LocalNotifications, public clipboard: Clipboard, public toast: ToastController) { }
 
 	ionViewDidLoad() {
 		this.api.index = 0;
@@ -108,6 +108,10 @@ export class HomePage {
 	ordenar(tipo) {
 		console.log(tipo);
 		console.log(this.status[tipo]);
+		if (!this.entidad_id) {
+			this.toast.create({ duration: 3000, message: "Eliga un lugar de entrega primero", position: 'top' }).present();
+			return;
+		}
 		if (!this.canOrder(tipo) || !this.in_horario) {
 			return;
 		}
@@ -190,6 +194,7 @@ export class HomePage {
 			this.alert.create({ message: "Error al cargar las direcciones", buttons: ["Ok"] }).present();
 		})
 	}
+
 	filterEntidad(entidad_id = null) {
 		return this.entidades.filter((ent) => {
 			if (entidad_id == null) {
@@ -199,6 +204,7 @@ export class HomePage {
 			}
 		});
 	}
+
 	changeEntidad(entidad) {
 		this.api.user.entidad_id = entidad;
 		console.log(entidad);

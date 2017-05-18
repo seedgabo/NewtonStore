@@ -16,6 +16,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MomentModule } from 'angular2-moment';
 import { HomePage } from "../pages/home/home";
 import { TutorialPage } from "../pages/tutorial/tutorial";
+import { Terms } from "../pages/terms/terms";
+
 import { Selector } from "../pages/selector/selector";
 import * as moment from 'moment';
 import 'moment/min/locales';
@@ -45,6 +47,7 @@ import { Clipboard } from '@ionic-native/clipboard';
 		HomePage,
 		LoginPage,
 		TutorialPage,
+		Terms,
 		Selector,
 	],
 	imports: [
@@ -69,10 +72,11 @@ import { Clipboard } from '@ionic-native/clipboard';
 		HomePage,
 		LoginPage,
 		TutorialPage,
+		Terms,
 		Selector
 	],
 	providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Api,
-		CodePush, SplashScreen, StatusBar, LocalNotifications, Push,Clipboard
+		CodePush, SplashScreen, StatusBar, LocalNotifications, Push, Clipboard
 	]
 })
 export class AppModule { }

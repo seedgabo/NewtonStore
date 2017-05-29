@@ -21,7 +21,7 @@
     </div>
     <div class="register" *ngIf="register">
       <ion-item style="background:rgba(255,255,255,0.3)">
-        <ion-label floating>Code</ion-label>
+        <ion-label floating>Codigo</ion-label>
         <ion-input type="email" [(ngModel)]="send.code"></ion-input>
       </ion-item>
       <ion-item style="background:rgba(255,255,255,0.3)">
@@ -35,6 +35,10 @@
       <ion-item style="background:rgba(255,255,255,0.3)">
         <ion-label floating>Cedula</ion-label>
         <ion-input type="number" [(ngModel)]="send.cedula"></ion-input>
+      </ion-item>
+      <ion-item style="background:rgba(255,255,255,0.3)">
+        <ion-label floating>Registro</ion-label>
+        <ion-input type="number" [(ngModel)]="send.notas"></ion-input>
       </ion-item>
       <ion-item style="background:rgba(255,255,255,0.3)">
         <ion-label floating>Contraseña</ion-label>

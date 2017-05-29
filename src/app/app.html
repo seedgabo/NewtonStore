@@ -27,16 +27,16 @@
         </ion-item-divider>
         <button menuClose ion-item detail-none (click)="cancelarPedido('almuerzo')" *ngIf="api.user.token != null && api.pedidos_ayer.almuerzo && hora < 8">
           <ion-icon name="close" item-right color="danger"></ion-icon>
-          Cancelar Almuerzo
+          Cancelar Almuerzo (hasta las 8 am)
       </button>
         <button menuClose ion-item detail-none (click)="cancelarPedido('comida')" *ngIf="api.user.token != null && api.pedidos_ayer.comida && hora <= 15 &&  minutos < 30">
           <ion-icon name="close" item-right color="danger"></ion-icon>
-          Cancelar Comida
+          Cancelar Comida (hasta las 3:30 pm)
       </button>
 
         <button menuClose ion-item detail-none (click)="cancelarPedido('cena')" *ngIf="api.user.token != null && api.pedidos_ayer.cena && hora < 20">
           <ion-icon name="close" item-right color="danger"></ion-icon>
-          Cancelar Cena
+          Cancelar Cena (hasta las 8 pm)
       </button>
         <ion-item-divider>
           Usuario

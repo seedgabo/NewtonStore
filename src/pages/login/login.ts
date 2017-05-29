@@ -16,6 +16,7 @@ export class LoginPage {
     email: "",
     cedula: "",
     code: "",
+    notas: "",
     cliente_id: 1,
   }
   terms = false;

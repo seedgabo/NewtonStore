@@ -109,13 +109,18 @@ export class HomePage {
     console.log(tipo);
     console.log(this.status[tipo]);
     if (!this.entidad_id) {
-      this.toast.create({ duration: 3000, message: "Eliga un lugar de entrega primero", position: 'top' }).present();
+      this.toast.create({ duration: 3000, message: "Elija un lugar de entrega primero", position: 'top' }).present();
       return;
     }
     if (this.filterEntidad(this.entidad_id).length > 0 && this.sub_entidad_id == null) {
-      this.toast.create({ duration: 3000, message: "Eliga un ubicacion de entrega primero", position: 'top' }).present();
+      this.toast.create({ duration: 3000, message: "Elija un ubicacion de entrega primero", position: 'top' }).present();
       return;
     }
+    if (this.entidad_id == 18 && tipo != 'cena') {
+      this.toast.create({ duration: 3000, message: "Esta planta solo puede pedir cena", position: 'top' }).present();
+      return;
+    }
+
     if (!this.canOrder(tipo) || !this.in_horario) {
       return;
     }

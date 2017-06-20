@@ -32,51 +32,54 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Push } from '@ionic-native/push';
 import { Clipboard } from '@ionic-native/clipboard';
+import { FaqPage } from "../pages/faq/faq";
 @NgModule({
-	declarations: [
-		MyApp,
-		Home,
-		Page2,
-		ProductoPage,
-		PedidosPage,
-		PedidoPage,
-		PedidoGuiadoPage,
-		PedidoRestringidoPage,
-		ProfilePage,
-		VerPedidoPage,
-		HomePage,
-		LoginPage,
-		TutorialPage,
-		Terms,
-		Selector,
-	],
-	imports: [
-		BrowserModule,
-		HttpModule,
-		IonicModule.forRoot(MyApp),
-		IonicStorageModule.forRoot(),
-		MomentModule
-	],
-	bootstrap: [IonicApp],
-	entryComponents: [
-		MyApp,
-		Home,
-		Page2,
-		ProductoPage,
-		PedidosPage,
-		PedidoPage,
-		PedidoGuiadoPage,
-		PedidoRestringidoPage,
-		ProfilePage,
-		VerPedidoPage,
-		HomePage,
-		LoginPage,
-		TutorialPage,
-		Terms,
-		Selector
-	],
-	providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Api,
-		CodePush, SplashScreen, StatusBar, LocalNotifications, Push, Clipboard
-	]
+  declarations: [
+    MyApp,
+    Home,
+    Page2,
+    ProductoPage,
+    PedidosPage,
+    PedidoPage,
+    PedidoGuiadoPage,
+    PedidoRestringidoPage,
+    ProfilePage,
+    VerPedidoPage,
+    HomePage,
+    LoginPage,
+    TutorialPage,
+    Terms,
+    FaqPage,
+    Selector,
+  ],
+  imports: [
+    BrowserModule,
+    HttpModule,
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
+    MomentModule
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    Home,
+    Page2,
+    ProductoPage,
+    PedidosPage,
+    PedidoPage,
+    PedidoGuiadoPage,
+    PedidoRestringidoPage,
+    ProfilePage,
+    VerPedidoPage,
+    HomePage,
+    LoginPage,
+    TutorialPage,
+    Terms,
+    FaqPage,
+    Selector
+  ],
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Api,
+    CodePush, SplashScreen, StatusBar, LocalNotifications, Push, Clipboard
+  ]
 })
 export class AppModule { }

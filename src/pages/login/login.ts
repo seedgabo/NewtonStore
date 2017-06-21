@@ -54,7 +54,7 @@ export class LoginPage {
   }
 
   canRegister() {
-    return (this.send.password == this.send.password_confirmation && this.send.password.length > 5 && this.send.email.length > 5 && this.terms && this.send.nombre.length > 5 && this.send.cedula.length > 4);
+    return (this.send.password == this.send.password_confirmation && this.send.password.length > 5 && this.send.email.length > 5 && this.terms && this.send.nombre.length > 5 && this.send.cedula.length > 4 && this.send.notas.length == 8);
   }
 
   doRegister() {

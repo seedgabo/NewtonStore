@@ -39,17 +39,21 @@
           Cancelar Cena (hasta las 8 pm)
       </button>
                 <ion-item-divider>
-                    <a menuClose ion-item href="mailTo:soportenewton@duflosa.com" target="_blank" *ngIf="api.user.token != null">
-                        <ion-icon name="person" item-left color="setting"></ion-icon>
-                        soporte Tecnico
-                    </a>
                     Usuario
                 </ion-item-divider>
+
+                <a menuClose ion-item href="http://seguimiento.duflosa.com:8080/pedidos/public/faq.pdf" target="_blank">
+                    <ion-icon name="help" item-left color="primary"></ion-icon>
+                    Preguntas Frequentes
+                </a>
+                <a menuClose ion-item href="mailTo:soportenewton@duflosa.com" target="_blank" *ngIf="api.user.token != null">
+                    <ion-icon name="person" item-left color="dark"></ion-icon>
+                    soporte Tecnico
+                </a>
                 <button menuClose ion-item (click)="verperfil()" *ngIf="api.user.token != null">
           <ion-icon name="person" item-left color="primary"></ion-icon>
           Mi Perfil
       </button>
-
                 <button menuClose ion-item (click)="logout()" *ngIf="api.user.token != null">
           <ion-icon name="log-out" item-left color="danger"></ion-icon>
           Cerrar Sesión

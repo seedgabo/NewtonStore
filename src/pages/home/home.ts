@@ -42,6 +42,7 @@ export class HomePage {
             this.getProgramaciones();
             this.getEntidades();
             this.getUser();
+            this.verifyNotifications();
           }
           else {
             this.navCtrl.setRoot(LoginPage);
@@ -155,7 +156,6 @@ export class HomePage {
             this.status.cena = true;
           }
         });
-        this.verifyNotifications();
       }
     ).catch(
       (err) => {
@@ -288,14 +288,13 @@ export class HomePage {
 
   verifyNotifications() {
     this.noti.clearAll();
-    if ((this.status.almuerzo === false && this.status.comida === false && this.status.cena === false) && moment().hour() < 17 && !this.api.user.is_vendedor) {
-      this.noti.schedule({
-        title: "Haz tu pedido ya!",
-        text: 'ya es el momento de realizar el pedido, si aun no lo has hecho',
-        at: moment().hour(17).minute(0).toDate(),
-        led: 'FF0000',
-      });
-    }
+    this.noti.schedule({
+      title: "Haz tu pedido ya!",
+      text: 'ya es el momento de realizar el pedido, si aun no lo has hecho',
+      at: moment().hour(17).minute(0).toDate(),
+      every: 'day',
+      led: 'FF0000',
+    });
   }
 
   selectClientes() {

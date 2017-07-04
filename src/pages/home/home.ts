@@ -287,13 +287,14 @@ export class HomePage {
   }
 
   verifyNotifications() {
-    this.noti.clearAll();
-    this.noti.schedule({
-      title: "Haz tu pedido ya!",
-      text: 'ya es el momento de realizar el pedido, si aun no lo has hecho',
-      at: moment().hour(17).minute(0).toDate(),
-      every: 'day',
-      led: 'FF0000',
+    this.noti.clearAll().then(() => {
+      this.noti.schedule({
+        title: "Haz tu pedido ya!",
+        text: 'ya es el momento de realizar el pedido, si aun no lo has hecho',
+        at: moment().hour(17).minute(0).toDate(),
+        every: 'day',
+        led: 'FF0000',
+      });
     });
   }
 

@@ -21,7 +21,7 @@ export class Api {
   tipo = "";
   categorias = [44, 27, 46, 47, 48, 49, 26, 45, 50, 51, 52, 53];
   index = 0;
-  entidad_ids = [3, 4,18, 20, 22, 23, 35];
+  entidad_ids = [3, 4, 18, 20, 22, 23, 35];
   restricted_categorias = [26, 45, 50, 61];
   user_selected: any = undefined;
   cupon: any = undefined;

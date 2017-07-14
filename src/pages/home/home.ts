@@ -199,6 +199,13 @@ export class HomePage {
   getEntidades() {
     this.api.get("entidades").then((data: Array<any>) => {
       this.entidades = data;
+      var array = [];
+      this.entidades.forEach((ent) => {
+        if (ent.codigo && ent.codigo.indexOf('*') > -1)
+          array.push(ent.id);
+      });
+      this.api.entidad_ids = array;
+      console.log('entidades sin perfiericos:', this.api.entidad_ids);
     }).catch(() => {
       this.alert.create({ message: "Error al cargar las direcciones", buttons: ["Ok"] }).present();
     })
@@ -287,15 +294,24 @@ export class HomePage {
   }
 
   verifyNotifications() {
-    this.noti.clearAll().then(() => {
-      this.noti.schedule({
-        title: "Haz tu pedido ya!",
-        text: 'ya es el momento de realizar el pedido, si aun no lo has hecho',
-        at: moment().hour(17).minute(0).toDate(),
-        every: 'day',
-        led: 'FF0000',
-      });
-    });
+    this.noti.registerPermission().then(() => {
+      this.noti.getAll().then((notifications) => {
+        if (notifications.length > 0) {
+          return;
+        }
+        this.noti.schedule({
+          title: "Haz tu pedido ya!",
+          text: 'ya es el momento de realizar el pedido, si aun no lo has hecho',
+          at: moment().add(1, "day").hour(17).minute(0).toDate(),
+          every: 'day',
+          led: 'FF0000',
+        });
+      })
+        .catch((err) => {
+          console.error(err);
+        });
+    })
+      .catch(console.warn);
   }
 
   selectClientes() {

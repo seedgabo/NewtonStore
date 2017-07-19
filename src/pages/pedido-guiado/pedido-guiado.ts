@@ -41,13 +41,18 @@ export class PedidoGuiadoPage {
   selectproducto(producto) {
     if (producto == 'none') {
       this.producto_selected = undefined;
-    } else {
+      window.categorias_originales = JSON.parse(JSON.stringify(this.api.categorias));
+      this.api.categorias = this.api.categorias.filter((cat: any) => {
+        return cat.id != 72;
+      })
+    }
+    else {
       this.producto_selected = producto;
       if (producto.name && producto.name.indexOf('Ensalada de Fruta') > -1) {
         window.categorias_originales = JSON.parse(JSON.stringify(this.api.categorias));
         console.log(this.api.categorias);
         this.api.categorias = this.api.categorias.filter((cat: any) => {
-          return [63, 50, 45, 61].indexOf(cat.id) > -1;
+          return [63, 72, 50, 45, 61].indexOf(cat.id) > -1;
         })
       }
       else if (producto.description && producto.description.indexOf('Menu Liviano (2)') > -1) {

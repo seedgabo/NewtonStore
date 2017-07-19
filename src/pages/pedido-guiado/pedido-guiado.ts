@@ -56,6 +56,20 @@ export class PedidoGuiadoPage {
           return [63, 47, 50, 45, 61].indexOf(cat.id) > -1;
         })
       }
+
+
+      else if (producto.description && producto.description.indexOf('Menu Liviano (2)') > -1) {
+        window.categorias_originales = JSON.parse(JSON.stringify(this.api.categorias));
+        this.api.categorias = this.api.categorias.filter((cat: any) => {
+          return [63, 72, 50, 45, 61].indexOf(cat.id) > -1;
+        })
+      }
+      else {
+        window.categorias_originales = JSON.parse(JSON.stringify(this.api.categorias));
+        this.api.categorias = this.api.categorias.filter((cat: any) => {
+          return cat.id != 72;
+        })
+      }
     }
     if (this.cangoNext())
       this.siguiente();

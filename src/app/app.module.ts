@@ -79,7 +79,7 @@ import { FaqPage } from "../pages/faq/faq";
     Selector
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Api,
-    CodePush, SplashScreen, StatusBar, LocalNotifications, Push, Clipboard
+    CodePush, SplashScreen, StatusBar, LocalNotifications, Push, Clipboard 
   ]
 })
 export class AppModule { }

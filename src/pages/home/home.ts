@@ -131,10 +131,11 @@ export class HomePage {
   }
 
   getPedidos() {
+    var user
     if (this.api.user_selected) {
-      var user = this.api.user_selected;
+      user = this.api.user_selected;
     } else {
-      var user = this.api.user;
+      user = this.api.user;
     }
     this.api.get("pedidos?with[]=items&&whereDateBetween[created_at]=today,tomorrow&where[user_id]=" + user.id).then(
       (data: Array<any>) => {
@@ -171,10 +172,11 @@ export class HomePage {
   }
 
   getPedidosAyer() {
+    var user
     if (this.api.user_selected) {
-      var user = this.api.user_selected;
+      user = this.api.user_selected;
     } else {
-      var user = this.api.user;
+      user = this.api.user;
     }
     this.api.get("pedidos?with[]=items&&whereDateBetween[created_at]=yesterday,today&where[user_id]=" + user.id)
       .then(
@@ -233,11 +235,12 @@ export class HomePage {
   }
 
   verPedido(ev, tipo) {
+    var user
     ev.stopPropagation();
     if (this.api.user_selected) {
-      var user = this.api.user_selected;
+      user = this.api.user_selected;
     } else {
-      var user = this.api.user;
+      user = this.api.user;
     }
     var pedido = user.pedidos.find((ped) => {
       return ped.tipo == tipo;
@@ -271,11 +274,11 @@ export class HomePage {
 
   _deletePedido(tipo) {
     console.log("eliminar pedido", tipo);
-    var index;
+    var index,user;
     if (this.api.user_selected) {
-      var user = this.api.user_selected;
+      user = this.api.user_selected;
     } else {
-      var user = this.api.user;
+      user = this.api.user;
     }
     var pedido = user.pedidos.find((ped, i) => {
       if (ped.tipo == tipo) {
@@ -294,23 +297,32 @@ export class HomePage {
   }
 
   verifyNotifications() {
-    this.noti.registerPermission().then(() => {
-      this.noti.getAll().then((notifications) => {
-        if (notifications.length > 0) {
-          return;
-        }
-        this.noti.schedule({
-          title: "Haz tu pedido ya!",
-          text: 'ya es el momento de realizar el pedido, si aun no lo has hecho',
-          at: moment().add(1, "day").hour(17).minute(0).toDate(),
-          every: 'day',
-          led: 'FF0000',
-        });
+    this.noti
+      .requestPermission()
+      .then(() => {
+        this.noti
+          .getAll()
+          .then(notifications => {
+            if (notifications.length > 0) {
+              return;
+            }
+            this.noti.schedule({
+              title: "Haz tu pedido ya!",
+              text:
+                "ya es el momento de realizar el pedido, si aun no lo has hecho",
+              at: moment()
+                .add(1, "day")
+                .hour(17)
+                .minute(0)
+                .toDate(),
+              every: "day",
+              led: "FF0000"
+            });
+          })
+          .catch(err => {
+            console.error(err);
+          });
       })
-        .catch((err) => {
-          console.error(err);
-        });
-    })
       .catch(console.warn);
   }
 

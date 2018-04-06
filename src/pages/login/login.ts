@@ -31,10 +31,10 @@ export class LoginPage {
     loading.present();
     this.api.doLogin().then((response: any) => {
       loading.dismiss();
-      if (response.cliente == null) {
-        this.alert.create({ title: "Error", message: "El uso de esta aplicación esta restringido a clientes", buttons: ["Ok"] }).present();
-        return
-      }
+      // if (response.cliente == null) {
+      //   this.alert.create({ title: "Error", message: "El uso de esta aplicación esta restringido a clientes", buttons: ["Ok"] }).present();
+      //   return
+      // }
       console.log("last pedido:", response.last_pedido);
 
 

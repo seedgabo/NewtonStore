@@ -29,7 +29,7 @@
     "angular2-moment": "^1.2.0",
     "code-push": "^2.0.4",
     "com.verso.cordova.clipboard": "^0.1.0",
-    "cordova-android": "^7.0.0",
+    "cordova-android": "7.1.0",
     "cordova-clipboard": "^1.1.1",
     "cordova-plugin-app-event": "^1.2.1",
     "cordova-plugin-code-push": "^1.11.9",
@@ -79,7 +79,9 @@
       "de.appplant.cordova.plugin.local-notification": {},
       "ionic-plugin-keyboard": {},
       "phonegap-plugin-push": {
-        "SENDER_ID": "AIzaSyALZDfIt-NMdTwApoX5a6SwmEYqpMtoKgQ"
+        "SENDER_ID": "AIzaSyALZDfIt-NMdTwApoX5a6SwmEYqpMtoKgQ",
+        "ANDROID_SUPPORT_V13_VERSION": "27.+",
+        "FCM_VERSION": "11.6.2"
       },
       "cordova-clipboard": {},
       "cordova-plugin-ionic-webview": {},

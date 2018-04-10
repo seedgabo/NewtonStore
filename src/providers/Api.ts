@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Platform } from 'ionic-angular';
-import { Push } from '@ionic-native/push';
-import { Http, Headers } from '@angular/http';
+import { Injectable } from "@angular/core";
+import { Platform } from "ionic-angular";
+import { Push } from "@ionic-native/push";
+import { Http, Headers } from "@angular/http";
 // import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
-import { Storage } from '@ionic/storage';
+import "rxjs/add/operator/map";
+import { Storage } from "@ionic/storage";
 
 @Injectable()
 export class Api {
@@ -12,12 +12,12 @@ export class Api {
   username: string;
   password: string;
   token: string;
-  url: string = 'http://seguimiento.duflosa.com:8080/pedidos/public/';
+  url: string = "http://seguimiento.duflosa.com:8080/pedidos/public/";
   // url:string = 'http://localhost/newton/public/';
   user: any = { token: null };
   pushData: any;
   carrito = [];
-  vista = 'grid';
+  vista = "grid";
   tipo = "";
   categorias = [44, 27, 46, 47, 48, 49, 26, 45, 50, 51, 52, 53];
   index = 0;
@@ -30,14 +30,18 @@ export class Api {
     comida: null,
     cena: null
   };
+  pedido_comedor = {
+    entidad: null,
+    tipo: null
+  };
   constructor(public http: Http, private platform: Platform, public storage: Storage, public push: Push) {
     this.initVar();
   }
 
   initVar() {
-    this.storage.get("username").then((data) => data != undefined ? this.username = data : '');
-    this.storage.get("password").then((data) => data != undefined ? this.password = data : '');
-    this.storage.get("user").then((data) => data != undefined ? this.user = JSON.parse(data) : {});
+    this.storage.get("username").then((data) => (data != undefined ? (this.username = data) : ""));
+    this.storage.get("password").then((data) => (data != undefined ? (this.password = data) : ""));
+    this.storage.get("user").then((data) => (data != undefined ? (this.user = JSON.parse(data)) : {}));
     // this.storage.get("carrito").then( (data)      =>  data!=undefined ? this.carrito = JSON.parse(data): [] );
   }
 
@@ -45,7 +49,7 @@ export class Api {
     this.storage.set("username", this.username);
     this.storage.set("password", this.password);
     this.storage.set("url", this.url);
-  };
+  }
 
   saveUser(user) {
     this.storage.set("user", JSON.stringify(user));
@@ -53,58 +57,72 @@ export class Api {
 
   doLogin() {
     return new Promise((resolve, reject) => {
-      this.http.get(this.url + "api/login", { headers: this.setHeaders() })
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, error => {
-          return reject(this.handleData(error));
-        });
+      this.http
+        .get(this.url + "api/login", { headers: this.setHeaders() })
+        .map((res) => res.json())
+        .subscribe(
+          (data) => {
+            resolve(data);
+          },
+          (error) => {
+            return reject(this.handleData(error));
+          }
+        );
     });
   }
 
   setProgramacion(programa) {
     if (programa != undefined) {
-      if (programa.categorias != '')
-        this.categorias = programa.categorias;
-      if (programa.productos != '')
-        this.productos = programa.productos;
+      if (programa.categorias != "") this.categorias = programa.categorias;
+      if (programa.productos != "") this.productos = programa.productos;
     }
   }
 
   get(uri) {
     return new Promise((resolve, reject) => {
-      this.http.get(this.url + "api/" + uri, { headers: this.setHeaders() })
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, error => {
-          return reject(this.handleData(error));
-        });
+      this.http
+        .get(this.url + "api/" + uri, { headers: this.setHeaders() })
+        .map((res) => res.json())
+        .subscribe(
+          (data) => {
+            resolve(data);
+          },
+          (error) => {
+            return reject(this.handleData(error));
+          }
+        );
     });
   }
 
   post(uri, data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.url + "api/" + uri, data, { headers: this.setHeaders() })
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, error => {
-          return reject(this.handleData(error));
-        });
+      this.http
+        .post(this.url + "api/" + uri, data, { headers: this.setHeaders() })
+        .map((res) => res.json())
+        .subscribe(
+          (data) => {
+            resolve(data);
+          },
+          (error) => {
+            return reject(this.handleData(error));
+          }
+        );
     });
   }
 
   delete(uri) {
     return new Promise((resolve, reject) => {
-      this.http.delete(this.url + "api/" + uri, { headers: this.setHeaders() })
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, error => {
-          return reject(this.handleData(error));
-        });
+      this.http
+        .delete(this.url + "api/" + uri, { headers: this.setHeaders() })
+        .map((res) => res.json())
+        .subscribe(
+          (data) => {
+            resolve(data);
+          },
+          (error) => {
+            return reject(this.handleData(error));
+          }
+        );
     });
   }
 
@@ -138,16 +156,22 @@ export class Api {
       this.carrito = [];
       this.storage.set("carrito", JSON.stringify(this.carrito));
       resolve(true);
-    })
+    });
   }
 
   postPushtoken(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.url + "api/dispositivos", data, { headers: this.setHeaders() })
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, error => { return reject(this.handleData(error)) });
+      this.http
+        .post(this.url + "api/dispositivos", data, { headers: this.setHeaders() })
+        .map((res) => res.json())
+        .subscribe(
+          (data) => {
+            resolve(data);
+          },
+          (error) => {
+            return reject(this.handleData(error));
+          }
+        );
     });
   }
 
@@ -155,32 +179,30 @@ export class Api {
     let push: any = this.push.init({
       android: {
         senderID: "600000041642",
-        clearNotifications: 'false',
+        clearNotifications: "false"
       },
       ios: {
         alert: "true",
         badge: true,
-        sound: 'true'
+        sound: "true"
       },
       windows: {}
     });
 
-    if (typeof push.error === 'undefined' || push.error === null) {
+    if (typeof push.error === "undefined" || push.error === null) {
       let body;
-      push.on('registration', (data) => {
+      push.on("registration", (data) => {
         console.log(data.registrationId);
-        if (this.platform.is('android'))
-          body = "token=" + data.registrationId + "&plataforma=android";
-        else
-          body = "token=" + data.registrationId + "&plataforma=ios";
+        if (this.platform.is("android")) body = "token=" + data.registrationId + "&plataforma=android";
+        else body = "token=" + data.registrationId + "&plataforma=ios";
 
-        this.postPushtoken(body).then(Response => {
+        this.postPushtoken(body).then((Response) => {
           this.pushData = Response;
           this.savePushData(Response);
         });
       });
 
-      push.on('notification', (data) => {
+      push.on("notification", (data) => {
         console.log(data.message);
         console.log(data.title);
         console.log(data.count);
@@ -189,7 +211,7 @@ export class Api {
         console.log(data.additionalData);
       });
 
-      push.on('error', (e) => {
+      push.on("error", (e) => {
         console.log(e.message);
       });
       return true;
@@ -198,16 +220,22 @@ export class Api {
   }
 
   savePushData(pushData) {
-    this.storage.set('pushData', JSON.stringify(pushData));
+    this.storage.set("pushData", JSON.stringify(pushData));
   }
 
   putPushData(id, data) {
     return new Promise((resolve, reject) => {
-      this.http.put(this.url + "api/dispositivos/" + id, data, { headers: this.setHeaders() })
-        .map(res => res.json())
-        .subscribe(data => {
-          resolve(data);
-        }, error => { return reject(this.handleData(error)) });
+      this.http
+        .put(this.url + "api/dispositivos/" + id, data, { headers: this.setHeaders() })
+        .map((res) => res.json())
+        .subscribe(
+          (data) => {
+            resolve(data);
+          },
+          (error) => {
+            return reject(this.handleData(error));
+          }
+        );
     });
   }
 
@@ -225,10 +253,9 @@ export class Api {
 
     // If request fails, throw an Error that will be caught
     if (res.status < 200 || res.status >= 300) {
-      return { error: res.status }
-    }
-    // If everything went fine, return the response
-    else {
+      return { error: res.status };
+    } else {
+      // If everything went fine, return the response
       return res;
     }
   }

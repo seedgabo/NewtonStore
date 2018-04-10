@@ -57,11 +57,12 @@ export class PedidoPage {
       this.alert.create({ message: "Elija una dirección de envió", buttons: ["OK"] }).present();
       return;
     }
+    var user
     if (this.api.user_selected) {
-      var user = this.api.user_selected;
+      user = this.api.user_selected;
       data.vendedor_id = this.api.user.id;
     } else {
-      var user = this.api.user;
+      user = this.api.user;
     }
     data.user_id = user.id;
     data.entidad_id = user.entidad_id;

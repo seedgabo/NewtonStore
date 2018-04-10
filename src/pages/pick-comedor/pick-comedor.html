@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Seleccionar Comedor</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let entidad of comedores" (click)="select(entidad)">
+      <h2>{{entidad.full_name}}</h2>
+    </button>
+  </ion-list>
+</ion-content>

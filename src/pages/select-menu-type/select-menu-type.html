@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Seleccionar Tipo de Menú</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let menu of menus">
+      {{menu.title}}
+    </button>
+  </ion-list>
+</ion-content>

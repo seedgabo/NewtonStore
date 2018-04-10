@@ -1,132 +1,148 @@
 <ion-header>
-    <ion-navbar color="primary">
-        <button ion-button menuToggle>
-			<ion-icon name="menu"></ion-icon>
-		</button>
-        <ion-title>Home</ion-title>
-        <ion-buttons end>
-            <button ion-button (click)="askCupon()" icon-left>
-				<ion-icon name="closed-captioning"></ion-icon>
-				Cupon
-			</button>
-        </ion-buttons>
-    </ion-navbar>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="askCupon()" icon-left>
+        <ion-icon name="closed-captioning"></ion-icon>
+        Cupon
+      </button>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content class="card-background-page">
-    <ion-item>
-        <ion-label ion-text color="dark">Dirección de envio</ion-label>
-        <ion-select [(ngModel)]="entidad_id" (ionChange)="changeEntidad(entidad_id)">
-            <ion-option [value]="entidad.id" *ngFor="let entidad of filterEntidad()">{{entidad.name}}</ion-option>
-        </ion-select>
-    </ion-item>
-    <ion-item *ngIf="entidad_id && filterEntidad(entidad_id).length > 0">
-        <ion-label ion-text color="dark">Ubicaciones</ion-label>
-        <ion-select [(ngModel)]="sub_entidad_id" (ionChange)="changeEntidad(sub_entidad_id)">
-            <ion-option [value]="entidad.id" *ngFor="let entidad of filterEntidad(entidad_id)">{{entidad.name}}</ion-option>
-        </ion-select>
-    </ion-item>
+  <ion-card (click)="goTocomedor()">
+    <img src="./assets/img/comedor.jpg" />
+    <div class="card-title">Pedido Comedor</div>
+    <div class="card-subtitle">
+      <button ion-button="" color="secondary" outline *ngIf="canOrder('comedor')">
+        Ordene Ahora
+      </button>
+    </div>
+    <div class="card-footer" text-right>
+    </div>
+  </ion-card>
 
-    <!--<img src="http://newton.eycproveedores.com/newton/public/img/logo-newton.png" style="height:120px; margin-top:20%" alt="">-->
-    <!--<h1 text-center color="primary" [ngClass]="{'dissapear' :  loading}"> Descargando Menú... </h1>-->
-    <button ion-button color="light" (click)="selectClientes()" block icon-left *ngIf="api.user.is_vendedor">
-		<ion-icon name="person"></ion-icon>
-		{{ api.user_selected  ? api.user_selected.full_name :'Seleccionar Cliente'}}
-	</button>
-    <ion-card (click)="ordenar('almuerzo')">
-        <img src="./assets/img/almuerzo.jpg" />
-        <div class="card-title">Almuerzo</div>
-        <div class="card-subtitle">
-            <ion-spinner color="light" *ngIf="status.almuerzo === undefined"></ion-spinner>
-            <button ion-button="" color="secondary" outline *ngIf="canOrder('almuerzo') && in_horario">
-				Ordene Ahora
-			</button>
-            <button ion-button color="primary" (click)="verPedido($event,'almuerzo')" *ngIf="status.almuerzo === true">
-				Ver Pedido
-			</button>
-            <span>
-				<br>Horario  de servicio: <br> 11:00 - 12:15
-			</span>
-            <span *ngIf="status.almuerzo === true">
-				<br>Ya pedido!
-			</span>
-            <div class="card-subtitle" *ngIf="status.almuerzo === false && !in_horario">
-                <button ion-button color="danger" disabled="true">
-				 	Fuera de horario
-				 </button>
-            </div>
-        </div>
-        <div class="card-footer" text-right>
-            <button ion-button color="danger" (click)="deletePedido($event,'almuerzo')" *ngIf="status.almuerzo === true">
-				Cancelar Pedido
-			</button>
-        </div>
-    </ion-card>
+  <ion-item>
+    <ion-label ion-text color="dark">Dirección de envio</ion-label>
+    <ion-select [(ngModel)]="entidad_id" (ionChange)="changeEntidad(entidad_id)">
+      <ion-option [value]="entidad.id" *ngFor="let entidad of filterEntidad()">{{entidad.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="entidad_id && filterEntidad(entidad_id).length > 0">
+    <ion-label ion-text color="dark">Ubicaciones</ion-label>
+    <ion-select [(ngModel)]="sub_entidad_id" (ionChange)="changeEntidad(sub_entidad_id)">
+      <ion-option [value]="entidad.id" *ngFor="let entidad of filterEntidad(entidad_id)">{{entidad.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <button ion-button color="light" (click)="selectClientes()" block icon-left *ngIf="api.user.is_vendedor">
+    <ion-icon name="person"></ion-icon>
+    {{ api.user_selected ? api.user_selected.full_name :'Seleccionar Cliente'}}
+  </button>
 
-    <ion-card (click)="ordenar('comida')">
-        <img src="./assets/img/comida.jpg" />
+  <ion-card (click)="ordenar('almuerzo')">
+    <img src="./assets/img/almuerzo.jpg" />
+    <div class="card-title">Almuerzo</div>
+    <div class="card-subtitle">
+      <ion-spinner color="light" *ngIf="status.almuerzo === undefined"></ion-spinner>
+      <button ion-button="" color="secondary" outline *ngIf="canOrder('almuerzo') && in_horario">
+        Ordene Ahora
+      </button>
+      <button ion-button color="primary" (click)="verPedido($event,'almuerzo')" *ngIf="status.almuerzo === true">
+        Ver Pedido
+      </button>
+      <span>
+        <br>Horario de servicio:
+        <br> 11:00 - 12:15
+      </span>
+      <span *ngIf="status.almuerzo === true">
+        <br>Ya pedido!
+      </span>
+      <div class="card-subtitle" *ngIf="status.almuerzo === false && !in_horario">
+        <button ion-button color="danger" disabled="true">
+          Fuera de horario
+        </button>
+      </div>
+    </div>
+    <div class="card-footer" text-right>
+      <button ion-button color="danger" (click)="deletePedido($event,'almuerzo')" *ngIf="status.almuerzo === true">
+        Cancelar Pedido
+      </button>
+    </div>
+  </ion-card>
 
-        <div class="card-title">Comida</div>
-        <div class="card-subtitle">
-            <ion-spinner color="light" *ngIf="status.comida === undefined"></ion-spinner>
-            <button ion-button="" color="secondary" outline *ngIf="canOrder('comida') && in_horario">
-				Ordene Ahora
-			</button>
-            <button ion-button color="primary" (click)="verPedido($event,'comida')" *ngIf="status.comida === true">
-				Ver Pedido
-			</button>
-            <span>
-		 		<br>Horario de servicio: <br> 4:30 - 5:45
-			</span>
-            <span *ngIf="status.comida === true &&   in_horario">
-				<br>Ya pedido!
-			</span>
-            <div class="card-subtitle" *ngIf="status.comida === false && !in_horario">
-                <button ion-button color="danger" disabled="true">
-				 	Fuera de horario
-				 </button>
-            </div>
-        </div>
-        <div class="card-footer" text-right>
-            <button ion-button color="danger" (click)="deletePedido($event,'comida')" *ngIf="status.comida === true">
-				Cancelar Pedido
-			</button>
-        </div>
-    </ion-card>
+  <ion-card (click)="ordenar('comida')">
+    <img src="./assets/img/comida.jpg" />
 
-    <ion-card (click)="ordenar('cena')">
-        <img src="./assets/img/cena.jpg" />
-        <div class="card-title">Cena</div>
-        <div class="card-subtitle">
-            <ion-spinner color="light" *ngIf="status.cena === undefined"></ion-spinner>
-            <button ion-button="" color="secondary" outline *ngIf="canOrder('cena') && in_horario">
-				Ordene Ahora
-			</button>
-            <button ion-button color="primary" (click)="verPedido($event,'cena')" *ngIf="status.cena === true">
-				Ver Pedido
-			</button>
-            <span>
-            <br>Horario de servicio: <br> 11:30 - 12:30
-            <br>
-			</span>
-            <span *ngIf="status.cena === true &&   in_horario">
-				<br>Ya pedido!
-			</span>
-            <div class="card-subtitle" *ngIf="status.cena === false && !in_horario">
-                <button ion-button color="danger" disabled="true">
-				 	Fuera de horario
-				 </button>
-            </div>
-        </div>
-        <div class="card-footer" text-right>
-            <button ion-button color="danger" (click)="deletePedido($event,'cena')" *ngIf="status.cena === true">
-				Cancelar Pedido
-			</button>
-        </div>
-    </ion-card>
-    <ion-fab bottom right *ngIf="api.user.admin">
-        <button ion-fab color="favorite" (click)="generateCupon()"><ion-icon name="closed-captioning"></ion-icon></button>
-    </ion-fab>
+    <div class="card-title">Comida</div>
+    <div class="card-subtitle">
+      <ion-spinner color="light" *ngIf="status.comida === undefined"></ion-spinner>
+      <button ion-button="" color="secondary" outline *ngIf="canOrder('comida') && in_horario">
+        Ordene Ahora
+      </button>
+      <button ion-button color="primary" (click)="verPedido($event,'comida')" *ngIf="status.comida === true">
+        Ver Pedido
+      </button>
+      <span>
+        <br>Horario de servicio:
+        <br> 4:30 - 5:45
+      </span>
+      <span *ngIf="status.comida === true &&   in_horario">
+        <br>Ya pedido!
+      </span>
+      <div class="card-subtitle" *ngIf="status.comida === false && !in_horario">
+        <button ion-button color="danger" disabled="true">
+          Fuera de horario
+        </button>
+      </div>
+    </div>
+    <div class="card-footer" text-right>
+      <button ion-button color="danger" (click)="deletePedido($event,'comida')" *ngIf="status.comida === true">
+        Cancelar Pedido
+      </button>
+    </div>
+  </ion-card>
+
+  <ion-card (click)="ordenar('cena')">
+    <img src="./assets/img/cena.jpg" />
+    <div class="card-title">Cena</div>
+    <div class="card-subtitle">
+      <ion-spinner color="light" *ngIf="status.cena === undefined"></ion-spinner>
+      <button ion-button="" color="secondary" outline *ngIf="canOrder('cena') && in_horario">
+        Ordene Ahora
+      </button>
+      <button ion-button color="primary" (click)="verPedido($event,'cena')" *ngIf="status.cena === true">
+        Ver Pedido
+      </button>
+      <span>
+        <br>Horario de servicio:
+        <br> 11:30 - 12:30
+        <br>
+      </span>
+      <span *ngIf="status.cena === true &&   in_horario">
+        <br>Ya pedido!
+      </span>
+      <div class="card-subtitle" *ngIf="status.cena === false && !in_horario">
+        <button ion-button color="danger" disabled="true">
+          Fuera de horario
+        </button>
+      </div>
+    </div>
+    <div class="card-footer" text-right>
+      <button ion-button color="danger" (click)="deletePedido($event,'cena')" *ngIf="status.cena === true">
+        Cancelar Pedido
+      </button>
+    </div>
+  </ion-card>
+
+  <ion-fab bottom right *ngIf="api.user.admin">
+    <button ion-fab color="favorite" (click)="generateCupon()">
+      <ion-icon name="closed-captioning"></ion-icon>
+    </button>
+  </ion-fab>
 
 </ion-content>
